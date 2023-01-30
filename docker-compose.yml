@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+
+  postgres:
+    image: 'postgres:14.0'
+    ports:
+      - "5432:5432"
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: playlist
+    volumes:
+      - ./db-data/postgres/:/var/lib/postgresql/data/
+
+  app:
+    container_name: playlist-service
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: playlist-service.dockerfile
+    ports:
+      - '8080:8080'
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+    depends_on:
+      - postgres
