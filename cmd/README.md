@@ -32,3 +32,15 @@ b. change anything in the query.sql about CRUD operation
 c. type sqlc generate
 Content will be generated within internal sub directory. Copy what you need to
 your .go files and make any changes necessary
+
+Note:
+after updating to the colima,
+volume of the postgresql is not supported, so
+remove the following two lines from the docker-compose.yml
+
+---
+
+    volumes:
+      - ./db-data/postgres/:/var/lib/postgresql/data/
+
+---

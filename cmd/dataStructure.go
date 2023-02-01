@@ -41,12 +41,12 @@ type PlaylistDish struct {
 }
 
 type Restaurant struct {
-	ID             string `json:"id"`
-	RestaurantName string `json:"restaurantName"`
-	UnitNumber     string `json:"unitNumber"`
-	AddressLine1   string `json:"addressLine1"`
-	AddressLine2   string `json:"addressLine2"`
-	PostalCode     int    `json:"postalCode"`
+	ID           string `json:"id"`
+	Name         string `json:"restaurantName"`
+	UnitNumber   string `json:"unitNumber"`
+	AddressLine1 string `json:"addressLine1"`
+	AddressLine2 string `json:"addressLine2"`
+	PostalCode   int    `json:"postalCode"`
 }
 
 // This struct includes all the data returned to the request

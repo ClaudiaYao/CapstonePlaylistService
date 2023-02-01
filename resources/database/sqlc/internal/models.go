@@ -45,10 +45,10 @@ type PlaylistDish struct {
 }
 
 type Restaurant struct {
-	ID             string         `json:"id"`
-	RestaurantName string         `json:"restaurantName"`
-	UnitNumber     string         `json:"unitNumber"`
-	AddressLine1   string         `json:"addressLine1"`
-	AddressLine2   sql.NullString `json:"addressLine2"`
-	PostalCode     sql.NullInt32  `json:"postalCode"`
+	ID           string         `json:"id"`
+	Name         string         `json:"name"`
+	UnitNumber   string         `json:"unitNumber"`
+	AddressLine1 string         `json:"addressLine1"`
+	AddressLine2 sql.NullString `json:"addressLine2"`
+	PostalCode   sql.NullInt32  `json:"postalCode"`
 }
