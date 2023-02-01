@@ -8,7 +8,7 @@ CREATE TABLE "restaurant" (
 
 CREATE TABLE "playlist" (
   "id" varchar PRIMARY KEY,
-  "playlist_name" varchar(50) NOT NULL,
+  "name" varchar(50) NOT NULL,
   "category_code" varchar NOT NULL,
   "price" float8 NOT NULL,
   "dietary_info" varchar(100),
