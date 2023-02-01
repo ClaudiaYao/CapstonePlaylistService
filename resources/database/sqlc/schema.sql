@@ -1,6 +1,6 @@
 CREATE TABLE "restaurant" (
   "id" varchar PRIMARY KEY,
-  "restaurant_name" varchar(30) NOT NULL,
+  "name" varchar(30) NOT NULL,
   "unit_number" varchar(10) NOT NULL,
   "address_line1" varchar(50) NOT NULL,
   "address_line2" varchar(50),

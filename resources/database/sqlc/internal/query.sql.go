@@ -175,7 +175,7 @@ func (q *Queries) GetPlaylistByID(ctx context.Context, id string) (Playlist, err
 }
 
 const getRestaurantByID = `-- name: GetRestaurantByID :one
-SELECT id, restaurant_name, unit_number, address_line1, address_line2, postal_code FROM restaurant
+SELECT id, name, unit_number, address_line1, address_line2, postal_code FROM restaurant
 WHERE id = $1 LIMIT 1
 `
 
@@ -184,11 +184,115 @@ func (q *Queries) GetRestaurantByID(ctx context.Context, id string) (Restaurant,
 	var i Restaurant
 	err := row.Scan(
 		&i.ID,
-		&i.RestaurantName,
+		&i.Name,
 		&i.UnitNumber,
 		&i.AddressLine1,
 		&i.AddressLine2,
 		&i.PostalCode,
 	)
 	return i, err
+}
+
+const insertNewCategory = `-- name: InsertNewCategory :one
+Insert into category (code, name, features) values  
+  ($1, $2, $3)
+  Returning code
+`
+
+type InsertNewCategoryParams struct {
+	Code     string         `json:"code"`
+	Name     string         `json:"name"`
+	Features sql.NullString `json:"features"`
+}
+
+func (q *Queries) InsertNewCategory(ctx context.Context, arg InsertNewCategoryParams) (string, error) {
+	row := q.db.QueryRowContext(ctx, insertNewCategory, arg.Code, arg.Name, arg.Features)
+	var code string
+	err := row.Scan(&code)
+	return code, err
+}
+
+const insertNewDish = `-- name: InsertNewDish :one
+Insert into dish (id, name, restaurant_id, price,
+  cuisine_style, ingredient,
+  comment, serve_time) values 
+  ($1, $2, $3, $4, $5, $6, $7, $8)
+  Returning id
+`
+
+type InsertNewDishParams struct {
+	ID           string         `json:"id"`
+	Name         string         `json:"name"`
+	RestaurantID string         `json:"restaurantID"`
+	Price        float64        `json:"price"`
+	CuisineStyle sql.NullString `json:"cuisineStyle"`
+	Ingredient   sql.NullString `json:"ingredient"`
+	Comment      sql.NullString `json:"comment"`
+	ServeTime    time.Time      `json:"serveTime"`
+}
+
+func (q *Queries) InsertNewDish(ctx context.Context, arg InsertNewDishParams) (string, error) {
+	row := q.db.QueryRowContext(ctx, insertNewDish,
+		arg.ID,
+		arg.Name,
+		arg.RestaurantID,
+		arg.Price,
+		arg.CuisineStyle,
+		arg.Ingredient,
+		arg.Comment,
+		arg.ServeTime,
+	)
+	var id string
+	err := row.Scan(&id)
+	return id, err
+}
+
+const insertNewPlaylistDish = `-- name: InsertNewPlaylistDish :one
+Insert into playlist_dish (id, dish_id, playlist_id) values 
+  ($1, $2, $3)
+  Returning id
+`
+
+type InsertNewPlaylistDishParams struct {
+	ID         int32  `json:"id"`
+	DishID     string `json:"dishID"`
+	PlaylistID string `json:"playlistID"`
+}
+
+func (q *Queries) InsertNewPlaylistDish(ctx context.Context, arg InsertNewPlaylistDishParams) (int32, error) {
+	row := q.db.QueryRowContext(ctx, insertNewPlaylistDish, arg.ID, arg.DishID, arg.PlaylistID)
+	var id int32
+	err := row.Scan(&id)
+	return id, err
+}
+
+const insertNewRestaurant = `-- name: InsertNewRestaurant :one
+Insert into restaurant (id, name,
+  unit_number, address_line1,address_line2,
+  postal_code) values 
+  ($1, $2, $3, $4, $5, $6)
+  Returning id
+`
+
+type InsertNewRestaurantParams struct {
+	ID           string         `json:"id"`
+	Name         string         `json:"name"`
+	UnitNumber   string         `json:"unitNumber"`
+	AddressLine1 string         `json:"addressLine1"`
+	AddressLine2 sql.NullString `json:"addressLine2"`
+	PostalCode   sql.NullInt32  `json:"postalCode"`
+}
+
+func (q *Queries) InsertNewRestaurant(ctx context.Context, arg InsertNewRestaurantParams) (string, error) {
+	row := q.db.QueryRowContext(ctx, insertNewRestaurant,
+		arg.ID,
+		arg.Name,
+		arg.UnitNumber,
+		arg.AddressLine1,
+		arg.AddressLine2,
+		arg.PostalCode,
+	)
+	var id string
+	err := row.Scan(&id)
+	return id, err
 }

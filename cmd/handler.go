@@ -26,7 +26,7 @@ func (app *PlaylistService) CreatePlaylist(w http.ResponseWriter, r *http.Reques
 	// 	requestPayload.Popularity}
 
 	// validate the user against the database
-	playlistID, err := app.DBConnection.CreatePlaylist(r.Context(), requestPayload)
+	playlistID, err := app.DBConnection.InsertPlaylist(r.Context(), requestPayload)
 	if err != nil {
 		app.errorJSON(w, err, http.StatusBadRequest)
 		return

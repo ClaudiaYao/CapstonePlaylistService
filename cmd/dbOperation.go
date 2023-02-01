@@ -18,23 +18,6 @@ type DataQuery struct {
 
 // var db *sql.DB
 
-func (dq *DataQuery) CreatePlaylist(ctx context.Context, playlistParam Playlist) (string, error) {
-	query := `Insert into playlist (id, playlist_name, category_code,
-  price, dietary_info, status, start_date, end_date,
-  popularity) values 
-  ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-  Returning id`
-	fmt.Println("playlist param:", playlistParam)
-	row := dq.db.QueryRowContext(ctx, query, playlistParam.ID, playlistParam.PlaylistName,
-		playlistParam.CategoryCode, playlistParam.Price, playlistParam.DietaryInfo,
-		playlistParam.Status,
-		playlistParam.StartDate, playlistParam.EndDate, playlistParam.Popularity)
-
-	var playlistID string
-	err := row.Scan(&playlistID)
-	return playlistID, err
-}
-
 // func (ds *DataService) GetPlaylistByCrietia(ctx context.Context, criteria map[string]string) ([]Playlist, error) {
 
 // }
@@ -84,7 +67,7 @@ func (dq *DataQuery) GetMultiRestaurantsByID(ctx context.Context, restaurantIDs 
 		var item Restaurant
 		err := rows.Scan(
 			&item.ID,
-			&item.RestaurantName,
+			&item.Name,
 			&item.UnitNumber,
 			&item.AddressLine1,
 			&item.AddressLine2,
@@ -136,220 +119,83 @@ func (dq *DataQuery) GetMultipleDishesByID(ctx context.Context, dishesID []inter
 	return dishes, nil
 }
 
-// func (ds *DataService) GetRestaurantByID(ctx context.Context, id string) (*Restaurant, error) {
-// 	ctx, cancel := context.WithTimeout(context.Background(), dbTimeout)
-// 	defer cancel()
+// The following are insertion operation. They might not be used in the frontend
+// Quest, but will be used in creating mock data to display the functionality
 
-// 	query := `select id, email, first_name, last_name, password, user_active, created_at, updated_at from users where email = $1`
+func (dq *DataQuery) InsertPlaylist(ctx context.Context, playlistParam Playlist) (string, error) {
+	query := `Insert into playlist (id, playlist_name, category_code,
+  price, dietary_info, status, start_date, end_date,
+  popularity) values 
+  ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+  Returning id`
+	fmt.Println("playlist param:", playlistParam)
+	row := dq.db.QueryRowContext(ctx, query, playlistParam.ID, playlistParam.PlaylistName,
+		playlistParam.CategoryCode, playlistParam.Price, playlistParam.DietaryInfo,
+		playlistParam.Status,
+		playlistParam.StartDate, playlistParam.EndDate, playlistParam.Popularity)
 
-// 	rows, err := db.QueryContext(ctx, query)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	defer rows.Close()
+	var playlistID string
+	err := row.Scan(&playlistID)
+	return playlistID, err
+}
 
-// 	var restaurantsInfo map[string]RestaurantInfo
+func (dq *DataQuery) InsertNewCategory(ctx context.Context, arg Category) (string, error) {
 
-// 	for rows.Next() {
-// 		var restaurantinfo RestaurantInfo
-// 		err := rows.Scan(
-// 			&restaurantinfo.ID,
-// 			&restaurantinfo.Name,
-// 			&restaurantinfo.AddressLine,
-// 			&restaurantinfo.PostalCode,
-// 			&restaurantinfo.UnitNumber,
-// 		)
+	query := "Insert into category (code, name, features) values ($1, $2, $3)"
+	fmt.Println("insert new category:", arg)
 
-// 		if err != nil {
-// 			log.Println("Error scanning", err)
-// 			return nil, err
-// 		}
+	row := dq.db.QueryRowContext(ctx, query, arg.Code, arg.Name, arg.Features)
+	var code string
+	err := row.Scan(&code)
+	return code, err
+}
 
-// 		restaurantsInfo[restaurantinfo.ID] = restaurantinfo
+func (dq *DataQuery) InsertNewDish(ctx context.Context, arg Dish) (string, error) {
+	query := `Insert into dish (id, name, restaurant_id, price,
+		cuisine_style, ingredient,
+		comment, serve_time) values 
+		($1, $2, $3, $4, $5, $6, $7, $8)`
 
-// 	}
+	row := dq.db.QueryRowContext(ctx, query,
+		arg.ID,
+		arg.Name,
+		arg.RestaurantID,
+		arg.Price,
+		arg.CuisineStyle,
+		arg.Ingredient,
+		arg.Comment,
+		arg.ServeTime,
+	)
+	var id string
+	err := row.Scan(&id)
+	return id, err
+}
 
-// 	return restaurantsInfo, nil
+func (dq *DataQuery) InsertNewPlaylistDish(ctx context.Context, arg PlaylistDish) (int32, error) {
 
-// }
-// func (db *sql.DB) GetDishByID(ctx context.Context, id string) (*Dish, error) {
+	query := `Insert into playlist_dish (id, dish_id, playlist_id) values 
+	($1, $2, $3)`
+	row := dq.db.QueryRowContext(ctx, query, arg.ID, arg.DishID, arg.PlaylistID)
+	var id int32
+	err := row.Scan(&id)
+	return id, err
+}
 
-// }
+func (dq *DataQuery) InsertNewRestaurant(ctx context.Context, arg Restaurant) (string, error) {
 
-// func (db *sql.DB) UpdatePlaylist(ctx context.Context, playlistID string) (*Playlist, error) {
-
-// }
-// func (db *sql.DB) UpdateRestaurant(ctx context.Context, restaurantID string) (*Restaurant, error) {
-
-// }
-// func (db *sql.DB) UpdateDish(ctx context.Context) (*Dish, error) {
-
-// }
-
-// func (db *sql.DB) DeletePlaylist(ctx context.Context, id int64) error {
-
-// }
-// func (db *sql.DB) DeleteRestaurant(ctx context.Context) error {
-
-// }
-// func (db *sql.DB) DeleteDish(ctx context.Context) error {
-
-// }
-
-// New is the function used to create an instance of the data package. It returns the type
-// Model, which embeds all the types we want to be available to our application.
-// func New(dbPool *sql.DB) playlistService {
-// 	db = dbPool
-// 	return
-// }
-
-// GetAll returns a slice of all playlists, sorted by Popularity
-// func (p *sql.DB) GetAll() ([]*Playlist, error) {
-// 	ctx, cancel := context.WithTimeout(context.Background(), dbTimeout)
-// 	defer cancel()
-
-// 	query := `select id, email, first_name, last_name, password, user_active, created_at, updated_at
-// 	from users order by last_name`
-
-// 	rows, err := db.QueryContext(ctx, query)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	defer rows.Close()
-
-// 	var playlists []*Playlist
-
-// 	for rows.Next() {
-// 		var playlist Playlist
-// 		err := rows.Scan(
-// 			&playlist.ID,
-// 			&playlist.Name,
-// 			&playlist.Price,
-// 			&playlist.StartDate,
-// 			&playlist.EndDate,
-// 			&playlist.Status,
-// 		)
-// 		if err != nil {
-// 			log.Println("Error scanning", err)
-// 			return nil, err
-// 		}
-
-// 		playlists = append(playlists, &playlist)
-// 	}
-
-// 	return playlists, nil
-// }
-
-// C: for this micro service, it is responsible for returning the playlist
-// C: which status is active
-// C: any customization to the existing playlist will be put into another database
-// C: subscription
-// func (u *Playlist) GetRestaurantInfo(restaurants_ID []*string) (map[string]RestaurantInfo, error) {
-// 	ctx, cancel := context.WithTimeout(context.Background(), dbTimeout)
-// 	defer cancel()
-
-// 	query := `select id, email, first_name, last_name, password, user_active, created_at, updated_at from users where email = $1`
-
-// 	rows, err := db.QueryContext(ctx, query)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	defer rows.Close()
-
-// 	var restaurantsInfo map[string]RestaurantInfo
-
-// 	for rows.Next() {
-// 		var restaurantinfo RestaurantInfo
-// 		err := rows.Scan(
-// 			&restaurantinfo.ID,
-// 			&restaurantinfo.Name,
-// 			&restaurantinfo.AddressLine,
-// 			&restaurantinfo.PostalCode,
-// 			&restaurantinfo.UnitNumber,
-// 		)
-
-// 		if err != nil {
-// 			log.Println("Error scanning", err)
-// 			return nil, err
-// 		}
-
-// 		restaurantsInfo[restaurantinfo.ID] = restaurantinfo
-
-// 	}
-
-// 	return restaurantsInfo, nil
-
-// }
-
-// // GetByEmail returns one user by email
-// func (u *Playlist) GetPlaylistInfo(playlistID string) (*PlaylistInfo, error) {
-// 	ctx, cancel := context.WithTimeout(context.Background(), dbTimeout)
-// 	defer cancel()
-
-// 	query := `select id, email, first_name, last_name, password, user_active, created_at, updated_at from users where email = $1`
-
-// 	rows, err := db.QueryContext(ctx, query)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	defer rows.Close()
-
-// 	var dishes map[string]Dish
-
-// 	var restaurantID []string
-
-// 	for rows.Next() {
-// 		var dish Dish
-// 		err := rows.Scan(
-// 			&dish.ID,
-// 			&dish.Name,
-// 			&dish.RestaurantId,
-// 			&dish.Comment,
-// 			&dish.CuisineStyle,
-// 			&dish.Price,
-// 			&dish.ServeTime,
-// 			&dish.Ingredient,
-// 		)
-
-// 		restaurantID = append(restaurantID, dish.RestaurantId)
-
-// 		if err != nil {
-// 			log.Println("Error scanning", err)
-// 			return nil, err
-// 		}
-
-// 		dishes[dish.ID] = dish
-
-// 	}
-
-// 	return PlaylistInfo, nil
-
-// }
-
-// // GetOne returns one user by id
-// func (u *User) GetOne(id int) (*User, error) {
-// 	ctx, cancel := context.WithTimeout(context.Background(), dbTimeout)
-// 	defer cancel()
-
-// 	query := `select id, email, first_name, last_name, password, user_active, created_at, updated_at from users where id = $1`
-
-// 	var user User
-// 	row := db.QueryRowContext(ctx, query, id)
-
-// 	err := row.Scan(
-// 		&user.ID,
-// 		&user.Email,
-// 		&user.FirstName,
-// 		&user.LastName,
-// 		&user.Password,
-// 		&user.Active,
-// 		&user.CreatedAt,
-// 		&user.UpdatedAt,
-// 	)
-
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	return &user, nil
-// }
+	query := `Insert into restaurant (id, name,
+		unit_number, address_line1,address_line2,
+		postal_code) values 
+		($1, $2, $3, $4, $5, $6)`
+	row := dq.db.QueryRowContext(ctx, query,
+		arg.ID,
+		arg.Name,
+		arg.UnitNumber,
+		arg.AddressLine1,
+		arg.AddressLine2,
+		arg.PostalCode,
+	)
+	var id string
+	err := row.Scan(&id)
+	return id, err
+}
