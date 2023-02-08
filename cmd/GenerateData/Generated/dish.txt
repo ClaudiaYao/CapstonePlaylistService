@@ -1,0 +1,37 @@
+DishBHAp8PmeG42NuyQaAN68GL|Salad|RESQ85tXrRE2MtpvnB58uvyDP|22.66|fugit, amet quia nulla culpa|veniam, ut, excepturi|
+DishS4wQTfEXEKvGaxVRrVfNQb|Sandwich|RESqFrSgazaDSDpajyusa3BDM|7.66|perferendis voluptatibus veniam|veniam, ut, excepturi|
+DishoyU6bhbRiYaK3wTBCsgqYJ|Bread|RESX4F95YYJFste2um8yreY5N|23.58|fugit, amet quia nulla culpa|consequatur, natus, tempore, officiis|
+DishtKDD5rd3icsCx2M3PQMatE|Steak|RESJVNMz4ynq9GMK3yKcQHcGg|22.54|fugit, amet quia nulla culpa|consequatur, natus, tempore, officiis|
+Dishc63NKTpwEmTdvsEquNiyc5|Tuna Steak|RESRN5L2mhdgwQfesJmoxKcoB|18.22|nulla consequatur natus tempore officiis|voluptatibus, veniam|
+DishdxSzuEj77WKh9FgGs5NKhU|Fish|RESjRXLCDpigTSjnHzDRN5g8e|19.12|veniam ut excepturi nulla conse|veniam, ut, excepturi|
+DishrcXZQ44WNRyamTumzbHD43|Shrimp|RES4pC8Df5zUwnF3AAnHAcYsS|21.93|nulla consequatur natus tempore officiis|veniam, ut, excepturi|
+DishEpZ49CnjQgsqX79a3pbQxi|Rice|RESDrRPnS7qrSdgMBbKq7W9ZZ|5.71|fugit, amet quia nulla culpa|fugit, amet quia, nulla|
+DishwVpzVm4GC3fLkjn3VgVo5C|Spaghetti|RESYdqJeSw29MzmUtuiqzpyFm|8.74|nulla consequatur natus tempore officiis|voluptatibus, veniam|
+DishnZajUAdgqhjaZrrqJFBRzL|Pizza|RESkaYMBzjvL8ujV3ZuRnq9Ta|16.56|nulla consequatur natus tempore officiis|veniam, ut, excepturi|
+DishUCFWQ6uQyBussvaFbr5JfD|Hamburger|RESdQDgPTkphAuq5uWuq5pxFg|12.70|nulla consequatur natus tempore officiis|consequatur, natus, tempore, officiis|
+DishR2HTshu5u8UEnpBLYfCzDV|Eggs|RESCgMtpX6FsNbP6niJgkjXu6|18.58|fugit, amet quia nulla culpa|fugit, amet quia, nulla|
+DishVmYydBo9rwsso3N2utgdpj|Cheese|RESvnBcogQ5z8mwcLBFr7w3Qa|12.00|perferendis voluptatibus veniam|fugit, amet quia, nulla|
+DishJZxHCnaM75CsrReviqpSnP|Sausages|RESkaYMBzjvL8ujV3ZuRnq9Ta|4.59|fugit, amet quia nulla culpa|voluptatibus, veniam|
+Dish8H9PcoQSchPFChrrSMpNa|Apple Juice|RESscTCHu24TK9Q3B9ab6J5rX|15.80|veniam ut excepturi nulla conse|consequatur, natus, tempore, officiis|
+Dish3znnuRrcVU2cxSx4kkwE5R|Grape Juice|RESRN5L2mhdgwQfesJmoxKcoB|13.17|fugit, amet quia nulla culpa|veniam, ut, excepturi|
+DishPEYeDigNUH6dohYqyPMREY|Milk|RESvLFx4Rmu2jU83cT8zBy3D3|8.99|fugit, amet quia nulla culpa|veniam, ut, excepturi|
+Dish7SSVEQb29RXNQecQD7KcLo|Candy|RESYdqJeSw29MzmUtuiqzpyFm|15.85|veniam ut excepturi nulla conse|voluptatibus, veniam|
+DishBkn6AKs2zEu5wYfHjUHb8g|Cookie|RESWr6W9ypNVVThLyHJBQcot4|14.78|fugit, amet quia nulla culpa|consequatur, natus, tempore, officiis|
+Dish4ZiA8H99eWJPsRLPQwPJNL|Pie|RESW3nj3Y8DNEtGnX7TRMwB3g|19.06|fugit, amet quia nulla culpa|voluptatibus, veniam|
+DishBJLactDYRhUVDYeps7vrtW|Cake|RESkaYMBzjvL8ujV3ZuRnq9Ta|8.64|nulla consequatur natus tempore officiis|voluptatibus, veniam|
+DishtN2zCCXB5UNaEgNwzze3Af|Cupcake|REStApsgvDaYUruMbi7mafKjB|4.50|nulla consequatur natus tempore officiis|voluptatibus, veniam|
+DishkUZDJudkv6ZZd9ueeBDVFi|Fish and Chips|RESYdqJeSw29MzmUtuiqzpyFm|15.44|perferendis voluptatibus veniam|voluptatibus, veniam|
+DishpWyTWgXBsn7QSXyVCiJVnQ|Bangers and Mash|RES7evXMYKroMKodkNLDQ5thX|13.83|perferendis voluptatibus veniam|veniam, ut, excepturi|
+Disht2iBhygzWKdzzejUrzvTxA|Full English Breakfast|RES4pC8Df5zUwnF3AAnHAcYsS|19.66|fugit, amet quia nulla culpa|fugit, amet quia, nulla|
+DishKeS6EUA5qQNiv8EF89XmBg|Sunday Roast|RESDAkvpnCSEvceormTrtAF8J|18.80|nulla consequatur natus tempore officiis|fugit, amet quia, nulla|
+Dish2ypz8BQ9x85oU7FpQ3Tgmb|Toad in the Hole|RESaLmyb38GHbx8QhgJXfwZF|5.99|nulla consequatur natus tempore officiis|fugit, amet quia, nulla|
+DishXxyXazjRFkbYnQ6CtiLMYX|Shepherd's Pie/Cottage Pie|RESDAkvpnCSEvceormTrtAF8J|7.19|perferendis voluptatibus veniam|fugit, amet quia, nulla|
+DishQid5dYRWnz8h8h2cemKzZE|Steak and Kidney Pie|REShvNPVvT9bwfn3jD5Nw5CQE|15.42|perferendis voluptatibus veniam|voluptatibus, veniam|
+DishNuua2rM4JFXg797P34RX3f|Hainanese chicken rice|RESwUaYzUssywaKhdopwPP46i|14.49|nulla consequatur natus tempore officiis|consequatur, natus, tempore, officiis|
+DishkMJfh9EjHbwggMxym8bCxi|Chilli crab|RESneWe7EQqTA2xZtZHwGSATX|4.26|veniam ut excepturi nulla conse|voluptatibus, veniam|
+Dish6QAXzt6D49ZqddPnnKBcbF|Laksa|RESKXKNPiuDJEQVL3n6aVuaxZ|20.53|nulla consequatur natus tempore officiis|fugit, amet quia, nulla|
+Dish8oBBsDD82ygfq4j3uEnB63|Char kuay teow|RES62vyrY7KHYu3nG6fDXqS5N|8.33|fugit, amet quia nulla culpa|veniam, ut, excepturi|
+Dish59tgqpF8HA3TBmmB9PWMWe|Hokkien prawn mee|RESwUaYzUssywaKhdopwPP46i|7.37|perferendis voluptatibus veniam|voluptatibus, veniam|
+DishuuaZSt3zQsPoCzBJ74A2u3|Barbecued stingray|RESqFrSgazaDSDpajyusa3BDM|5.16|fugit, amet quia nulla culpa|voluptatibus, veniam|
+DishMpBdxARX4cVfc3LhXdRZM9|Fish head curry|RESqFrSgazaDSDpajyusa3BDM|19.62|perferendis voluptatibus veniam|consequatur, natus, tempore, officiis|
+DishKrMucusF6sydFwpyxGkTyQ|Satay|RESVXePTmXqwazV7tDV9TEjfM|9.02|perferendis voluptatibus veniam|consequatur, natus, tempore, officiis|

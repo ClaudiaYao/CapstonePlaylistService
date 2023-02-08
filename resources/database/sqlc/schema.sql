@@ -9,9 +9,8 @@ CREATE TABLE "restaurant" (
 
 CREATE TABLE "playlist" (
   "id" varchar PRIMARY KEY,
-  "playlist_name" varchar(50) NOT NULL,
+  "name" varchar(50) NOT NULL,
   "category_code" varchar NOT NULL,
-  "price" float8 NOT NULL,
   "dietary_info" varchar(100),
   "status" varchar(50) NOT NULL,
   "start_date" date NOT NULL,
@@ -27,7 +26,7 @@ CREATE TABLE "category" (
 );
 
 CREATE TABLE "playlist_dish" (
-  "id" SERIAL PRIMARY KEY, 
+  "id" varchar PRIMARY KEY, 
   "dish_id" varchar NOT NULL,
   "playlist_id" varchar NOT NULL
 );
@@ -55,7 +54,6 @@ CREATE INDEX ON "playlist_dish" ("dish_id", "playlist_id");
 
 CREATE INDEX ON "dish" ("id");
 
-ALTER TABLE "restaurant" ADD FOREIGN KEY ("address_id") REFERENCES "address" ("id");
 
 ALTER TABLE "playlist" ADD FOREIGN KEY ("category_code") REFERENCES "category" ("code");
 

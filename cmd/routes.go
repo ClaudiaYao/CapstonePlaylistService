@@ -23,7 +23,18 @@ func (app *PlaylistService) routes() http.Handler {
 
 	mux.Use(middleware.Heartbeat("/ping"))
 
+	// mux.Route("/playlists", func(r chi.Router) {
+	// 	r.Get("/", app.Playlists)
+	// 	r.Post("/new", app.CreatePlaylist)
+
+	// 	r.Get("/{code}", h.internalPlan.Get)
+	// 	r.Put("/{code}", h.internalPlan.Update)
+	// })
+
 	mux.Post("/playlist/new", app.CreatePlaylist)
-	mux.Get("/playlist", app.Welcome)
+	mux.Get("/", app.Welcome)
+
+	mux.Get("/playlists", app.Playlists)
+	// mux.Get("/playlists/sort?{}", app.Playlists)
 	return mux
 }

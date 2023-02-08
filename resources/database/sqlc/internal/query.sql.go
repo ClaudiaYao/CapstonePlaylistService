@@ -13,9 +13,9 @@ import (
 
 const createPlaylist = `-- name: CreatePlaylist :one
 Insert into playlist (id, playlist_name, category_code,
-  price, dietary_info, status, start_date, end_date,
+  dietary_info, status, start_date, end_date,
   popularity) values 
-  ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+  ($1, $2, $3, $4, $5, $6, $7, $8)
   Returning id
 `
 
@@ -23,7 +23,6 @@ type CreatePlaylistParams struct {
 	ID           string         `json:"id"`
 	PlaylistName string         `json:"playlistName"`
 	CategoryCode string         `json:"categoryCode"`
-	Price        float64        `json:"price"`
 	DietaryInfo  sql.NullString `json:"dietaryInfo"`
 	Status       string         `json:"status"`
 	StartDate    time.Time      `json:"startDate"`
@@ -36,7 +35,6 @@ func (q *Queries) CreatePlaylist(ctx context.Context, arg CreatePlaylistParams) 
 		arg.ID,
 		arg.PlaylistName,
 		arg.CategoryCode,
-		arg.Price,
 		arg.DietaryInfo,
 		arg.Status,
 		arg.StartDate,
@@ -46,6 +44,26 @@ func (q *Queries) CreatePlaylist(ctx context.Context, arg CreatePlaylistParams) 
 	var id string
 	err := row.Scan(&id)
 	return id, err
+}
+
+const getDishByID = `-- name: GetDishByID :one
+SELECT id, name, restaurant_id, price, cuisine_style, ingredient, comment, serve_time FROM dish where id=$1
+`
+
+func (q *Queries) GetDishByID(ctx context.Context, id string) (Dish, error) {
+	row := q.db.QueryRowContext(ctx, getDishByID, id)
+	var i Dish
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.RestaurantID,
+		&i.Price,
+		&i.CuisineStyle,
+		&i.Ingredient,
+		&i.Comment,
+		&i.ServeTime,
+	)
+	return i, err
 }
 
 const getMultiRestaurantsByID = `-- name: GetMultiRestaurantsByID :many
@@ -115,30 +133,29 @@ func (q *Queries) GetMultipleDishesByID(ctx context.Context, id string) ([]Dish,
 	return items, nil
 }
 
-const getPlaylistByCriteria = `-- name: GetPlaylistByCriteria :many
-
-SELECT id, name, restaurant_id, price, cuisine_style, ingredient, comment, serve_time FROM dish where id=$1
+const getPlaylistByCategory = `-- name: GetPlaylistByCategory :many
+SELECT id, playlist_name, category_code, price, dietary_info, status, start_date, end_date, popularity FROM playlist where category_code=$1 LIMIT 10
 `
 
-// SELECT * FROM playlist where popularity>$1 and price < $2
-func (q *Queries) GetPlaylistByCriteria(ctx context.Context, id string) ([]Dish, error) {
-	rows, err := q.db.QueryContext(ctx, getPlaylistByCriteria, id)
+func (q *Queries) GetPlaylistByCategory(ctx context.Context, categoryCode string) ([]Playlist, error) {
+	rows, err := q.db.QueryContext(ctx, getPlaylistByCategory, categoryCode)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Dish
+	var items []Playlist
 	for rows.Next() {
-		var i Dish
+		var i Playlist
 		if err := rows.Scan(
 			&i.ID,
-			&i.Name,
-			&i.RestaurantID,
+			&i.PlaylistName,
+			&i.CategoryCode,
 			&i.Price,
-			&i.CuisineStyle,
-			&i.Ingredient,
-			&i.Comment,
-			&i.ServeTime,
+			&i.DietaryInfo,
+			&i.Status,
+			&i.StartDate,
+			&i.EndDate,
+			&i.Popularity,
 		); err != nil {
 			return nil, err
 		}
@@ -172,6 +189,43 @@ func (q *Queries) GetPlaylistByID(ctx context.Context, id string) (Playlist, err
 		&i.Popularity,
 	)
 	return i, err
+}
+
+const getPlaylistByPopularity = `-- name: GetPlaylistByPopularity :many
+SELECT id, playlist_name, category_code, price, dietary_info, status, start_date, end_date, popularity FROM playlist order by popularity DESC LIMIT 10
+`
+
+func (q *Queries) GetPlaylistByPopularity(ctx context.Context) ([]Playlist, error) {
+	rows, err := q.db.QueryContext(ctx, getPlaylistByPopularity)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Playlist
+	for rows.Next() {
+		var i Playlist
+		if err := rows.Scan(
+			&i.ID,
+			&i.PlaylistName,
+			&i.CategoryCode,
+			&i.Price,
+			&i.DietaryInfo,
+			&i.Status,
+			&i.StartDate,
+			&i.EndDate,
+			&i.Popularity,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
 
 const getRestaurantByID = `-- name: GetRestaurantByID :one

@@ -139,17 +139,32 @@ func (app *PlaylistService) GetDishByID(w http.ResponseWriter, r *http.Request) 
 	app.writeJSON(w, http.StatusAccepted, responsePayload)
 }
 
-// func (app *PlaylistService) GetPlaylist(w http.ResponseWriter, r *http.Request) {
-// 	var requestPayload struct {
-// 		Email    string `json:"email"`
-// 		Password string `json:"password"`
-// 	}
+func (app *PlaylistService) Playlists(w http.ResponseWriter, r *http.Request) {
 
-// 	err := app.readJSON(w, r, &requestPayload)
-// 	if err != nil {
-// 		app.errorJSON(w, err, http.StatusBadRequest)
-// 		return
-// 	}
+	// planType := entities.SourceB2C
+	// source := strings.TrimSpace(r.URL.Query().Get("source"))
+
+	// validate the user against the database
+	// C: since the micro service's request from internal development team, the validity checking
+	// C: of the playlistID could be less strict. If the micro service is facing the public,
+	// C: more stringent checking should be applied to avoid any malicious query.
+
+	playlists, err := app.DBConnection.GetPlaylistByPopularity(r.Context())
+	if err != nil {
+		app.errorJSON(w, errors.New("invalid query"), http.StatusBadRequest)
+		return
+	}
+
+	responsePayload := jsonResponse{
+		Error:   false,
+		Message: "playlists are retrieved",
+		Data:    playlists,
+	}
+
+	// C: this means the success response
+	app.writeJSON(w, http.StatusAccepted, responsePayload)
+
+}
 
 // 	// validate the user against the database
 // 	user, err := app.Models.User.GetByEmail(requestPayload.Email)
