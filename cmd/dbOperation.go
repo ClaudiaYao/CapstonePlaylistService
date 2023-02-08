@@ -37,7 +37,6 @@ func (dq *DataQuery) GetPlaylistByID(ctx context.Context, id string) (*Playlist,
 		&item.ID,
 		&item.PlaylistName,
 		&item.CategoryCode,
-		&item.Price,
 		&item.DietaryInfo,
 		&item.Status,
 		&item.StartDate,
@@ -122,15 +121,16 @@ func (dq *DataQuery) GetMultipleDishesByID(ctx context.Context, dishesID []inter
 // The following are insertion operation. They might not be used in the frontend
 // Quest, but will be used in creating mock data to display the functionality
 
+const insertPlaylistQuery string = `Insert into playlist (id, playlist_name, category_code,
+	dietary_info, status, start_date, end_date,
+	popularity) values 
+	($1, $2, $3, $4, $5, $6, $7, $8)`
+
 func (dq *DataQuery) InsertPlaylist(ctx context.Context, playlistParam Playlist) (string, error) {
-	query := `Insert into playlist (id, playlist_name, category_code,
-  price, dietary_info, status, start_date, end_date,
-  popularity) values 
-  ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-  Returning id`
+
 	fmt.Println("playlist param:", playlistParam)
-	row := dq.db.QueryRowContext(ctx, query, playlistParam.ID, playlistParam.PlaylistName,
-		playlistParam.CategoryCode, playlistParam.Price, playlistParam.DietaryInfo,
+	row := dq.db.QueryRowContext(ctx, insertPlaylistQuery, playlistParam.ID, playlistParam.PlaylistName,
+		playlistParam.CategoryCode, playlistParam.DietaryInfo,
 		playlistParam.Status,
 		playlistParam.StartDate, playlistParam.EndDate, playlistParam.Popularity)
 
@@ -139,24 +139,26 @@ func (dq *DataQuery) InsertPlaylist(ctx context.Context, playlistParam Playlist)
 	return playlistID, err
 }
 
+const insertNewCategoryQuery string = "Insert into category (code, name, features) values ($1, $2, $3)"
+
 func (dq *DataQuery) InsertNewCategory(ctx context.Context, arg Category) (string, error) {
 
-	query := "Insert into category (code, name, features) values ($1, $2, $3)"
 	fmt.Println("insert new category:", arg)
 
-	row := dq.db.QueryRowContext(ctx, query, arg.Code, arg.Name, arg.Features)
+	row := dq.db.QueryRowContext(ctx, insertNewCategoryQuery, arg.Code, arg.Name, arg.Features)
 	var code string
 	err := row.Scan(&code)
 	return code, err
 }
 
-func (dq *DataQuery) InsertNewDish(ctx context.Context, arg Dish) (string, error) {
-	query := `Insert into dish (id, name, restaurant_id, price,
-		cuisine_style, ingredient,
-		comment, serve_time) values 
-		($1, $2, $3, $4, $5, $6, $7, $8)`
+const insertNewDishQuery string = `Insert into dish (id, name, restaurant_id, price,
+	cuisine_style, ingredient,
+	comment) values 
+	($1, $2, $3, $4, $5, $6, $7)`
 
-	row := dq.db.QueryRowContext(ctx, query,
+func (dq *DataQuery) InsertNewDish(ctx context.Context, arg Dish) (string, error) {
+
+	row := dq.db.QueryRowContext(ctx, insertNewDishQuery,
 		arg.ID,
 		arg.Name,
 		arg.RestaurantID,
@@ -171,23 +173,25 @@ func (dq *DataQuery) InsertNewDish(ctx context.Context, arg Dish) (string, error
 	return id, err
 }
 
+const insertNewPlaylistDish string = `Insert into playlist_dish (id, dish_id, playlist_id) values 
+($1, $2, $3)`
+
 func (dq *DataQuery) InsertNewPlaylistDish(ctx context.Context, arg PlaylistDish) (int32, error) {
 
-	query := `Insert into playlist_dish (id, dish_id, playlist_id) values 
-	($1, $2, $3)`
-	row := dq.db.QueryRowContext(ctx, query, arg.ID, arg.DishID, arg.PlaylistID)
+	row := dq.db.QueryRowContext(ctx, insertNewPlaylistDish, arg.ID, arg.DishID, arg.PlaylistID)
 	var id int32
 	err := row.Scan(&id)
 	return id, err
 }
 
+const InsertNewRestaurantQuery string = `Insert into restaurant (id, name,
+	unit_number, address_line1,address_line2,
+	postal_code) values 
+	($1, $2, $3, $4, $5, $6)`
+
 func (dq *DataQuery) InsertNewRestaurant(ctx context.Context, arg Restaurant) (string, error) {
 
-	query := `Insert into restaurant (id, name,
-		unit_number, address_line1,address_line2,
-		postal_code) values 
-		($1, $2, $3, $4, $5, $6)`
-	row := dq.db.QueryRowContext(ctx, query,
+	row := dq.db.QueryRowContext(ctx, InsertNewRestaurantQuery,
 		arg.ID,
 		arg.Name,
 		arg.UnitNumber,
@@ -198,4 +202,78 @@ func (dq *DataQuery) InsertNewRestaurant(ctx context.Context, arg Restaurant) (s
 	var id string
 	err := row.Scan(&id)
 	return id, err
+}
+
+const getPlaylistByCategory = `
+SELECT id, playlist_name, category_code, dietary_info, status, start_date, end_date, popularity FROM playlist where category_code=$1 LIMIT 10
+`
+
+func (dq *DataQuery) GetPlaylistByCategory(ctx context.Context, categoryCode string) ([]Playlist, error) {
+	rows, err := dq.db.QueryContext(ctx, getPlaylistByCategory, categoryCode)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var items []Playlist
+	for rows.Next() {
+		var i Playlist
+		if err := rows.Scan(
+			&i.ID,
+			&i.PlaylistName,
+			&i.CategoryCode,
+			&i.DietaryInfo,
+			&i.Status,
+			&i.StartDate,
+			&i.EndDate,
+			&i.Popularity,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getPlaylistByPopularity = `
+SELECT id, name, category_code, dietary_info, status, 
+start_date, end_date, popularity FROM playlist order by popularity DESC LIMIT 10
+`
+
+func (dq *DataQuery) GetPlaylistByPopularity(ctx context.Context) ([]Playlist, error) {
+	rows, err := dq.db.QueryContext(ctx, getPlaylistByPopularity)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Playlist
+	for rows.Next() {
+		var i Playlist
+		if err := rows.Scan(
+			&i.ID,
+			&i.PlaylistName,
+			&i.CategoryCode,
+			&i.DietaryInfo,
+			&i.Status,
+			&i.StartDate,
+			&i.EndDate,
+			&i.Popularity,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }

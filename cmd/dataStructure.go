@@ -26,7 +26,6 @@ type Playlist struct {
 	ID           string    `json:"id"`
 	PlaylistName string    `json:"playlistName"`
 	CategoryCode string    `json:"categoryCode"`
-	Price        float64   `json:"price"`
 	DietaryInfo  string    `json:"dietaryInfo"`
 	Status       string    `json:"status"`
 	StartDate    time.Time `json:"startDate"`

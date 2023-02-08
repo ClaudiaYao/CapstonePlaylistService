@@ -4,21 +4,22 @@ services:
 
   postgres:
     image: 'postgres:latest'
+    container_name: playlist-postgres
     ports:
       - "5432:5432"
     restart: always
     deploy:
       mode: replicated
       replicas: 1
+    user: postgres 
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: playlist
 
+
   app:
     container_name: playlist-service
-    env_file:
-      - .env
     build:
       context: .
       dockerfile: playlist-service.dockerfile
@@ -30,3 +31,5 @@ services:
       replicas: 1
     depends_on:
       - postgres
+    environment:
+      DSN: "host=postgres port=5432 user=postgres password=password dbname=playlist sslmode=disable timezone=UTC connect_timeout=5"

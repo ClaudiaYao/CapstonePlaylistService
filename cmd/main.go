@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -83,15 +82,16 @@ func goDotEnvVariable(key string) string {
 // C: wrap the openDB function and provide retry mechanism
 func connectToDB() *DataQuery {
 
-	host := goDotEnvVariable("DB_HOST")
-	port := goDotEnvVariable("DB_PORT")
-	user := goDotEnvVariable("DB_USER")
-	password := goDotEnvVariable("DB_PASS")
-	dbname := goDotEnvVariable("DB_NAME")
+	// host := goDotEnvVariable("DB_HOST")
+	// port := goDotEnvVariable("DB_PORT")
+	// user := goDotEnvVariable("DB_USER")
+	// password := goDotEnvVariable("DB_PASS")
+	// dbname := goDotEnvVariable("DB_NAME")
 
-	dsn := fmt.Sprintf("host=%s port=%s user=%s "+
-		"password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
+	// dsn := fmt.Sprintf("host=%s port=%s user=%s "+
+	// 	"password=%s dbname=%s sslmode=disable",
+	// 	host, port, user, password, dbname)
+	dsn := os.Getenv("DSN")
 
 	println("debugging line:", dsn)
 
