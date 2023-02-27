@@ -17,7 +17,7 @@
 
 ### 4. type "make up" to initiate the whole application and dependencies
 
-> Note: If you did the step 2, this step could be skipped
+> Note: If you did the step 3, this step could be skipped
 
 ### 5. type "make migrateup" to create database tables and initilize migration
 

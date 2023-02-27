@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 
-	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"
 )
 
@@ -30,11 +30,16 @@ func (app *PlaylistService) routes() http.Handler {
 	// 	r.Get("/{code}", h.internalPlan.Get)
 	// 	r.Put("/{code}", h.internalPlan.Update)
 	// })
-
-	mux.Post("/playlist/new", app.CreatePlaylist)
 	mux.Get("/", app.Welcome)
 
-	mux.Get("/playlists", app.Playlists)
+	mux.Route("/playlists", func(mux chi.Router) {
+		mux.Post("/new", app.CreatePlaylist)
+		mux.Get("/", app.Playlists)
+		mux.Get("/category/{categoryCode}", app.GetPlaylistByCategory)
+		mux.Get("/{id}", app.GetPlaylistByID)
+
+	})
+
 	// mux.Get("/playlists/sort?{}", app.Playlists)
 	return mux
 }
