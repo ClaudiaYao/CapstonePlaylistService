@@ -4,6 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+
+	"github.com/go-chi/chi"
 )
 
 // C: this PlaylistService is responsible for transfering information request/response
@@ -25,7 +27,6 @@ func (app *PlaylistService) CreatePlaylist(w http.ResponseWriter, r *http.Reques
 	// 	requestPayload.Status, requestPayload.StartDate, requestPayload.EndDate,
 	// 	requestPayload.Popularity}
 
-	// validate the user against the database
 	playlistID, err := app.DBConnection.InsertPlaylist(r.Context(), requestPayload)
 	if err != nil {
 		app.errorJSON(w, err, http.StatusBadRequest)
@@ -47,36 +48,6 @@ func (app *PlaylistService) CreatePlaylist(w http.ResponseWriter, r *http.Reques
 
 func (app *PlaylistService) Welcome(w http.ResponseWriter, r *http.Request) {
 	app.writeJSON(w, http.StatusAccepted, "Welcome to Playlist service!")
-}
-
-func (app *PlaylistService) GetPlaylistByID(w http.ResponseWriter, r *http.Request) {
-	var playlistID string
-
-	err := app.readJSON(w, r, &playlistID)
-	if err != nil {
-		app.errorJSON(w, err, http.StatusBadRequest)
-		return
-	}
-
-	// validate the user against the database
-	// C: since the micro service's request from internal development team, the validity checking
-	// C: of the playlistID could be less strict. If the micro service is facing the public,
-	// C: more stringent checking should be applied to avoid any malicious query.
-
-	playlist, err := app.DBConnection.GetPlaylistByID(r.Context(), playlistID)
-	if err != nil {
-		app.errorJSON(w, errors.New("invalid credentials"), http.StatusBadRequest)
-		return
-	}
-
-	responsePayload := jsonResponse{
-		Error:   false,
-		Message: fmt.Sprintf("playlist is created: %s", playlist.ID),
-		Data:    playlist,
-	}
-
-	// C: this means the success response
-	app.writeJSON(w, http.StatusAccepted, responsePayload)
 }
 
 func (app *PlaylistService) GetRestaurantByID(w http.ResponseWriter, r *http.Request) {
@@ -164,6 +135,64 @@ func (app *PlaylistService) Playlists(w http.ResponseWriter, r *http.Request) {
 	// C: this means the success response
 	app.writeJSON(w, http.StatusAccepted, responsePayload)
 
+}
+
+func (app *PlaylistService) GetPlaylistByCategory(w http.ResponseWriter, r *http.Request) {
+
+	// planType := entities.SourceB2C
+	// source := strings.TrimSpace(r.URL.Query().Get("source"))
+	fmt.Println("enter into category check")
+
+	categoryCode := chi.URLParam(r, "categoryCode")
+	fmt.Println("catch category:", categoryCode)
+	// validate the user against the database
+	// C: since the micro service's request from internal development team, the validity checking
+	// C: of the playlistID could be less strict. If the micro service is facing the public,
+	// C: more stringent checking should be applied to avoid any malicious query.
+
+	playlists, err := app.DBConnection.GetPlaylistByCategory(r.Context(), categoryCode)
+	if err != nil {
+		app.errorJSON(w, errors.New("invalid query"), http.StatusBadRequest)
+		return
+	}
+
+	responsePayload := jsonResponse{
+		Error:   false,
+		Message: "playlists are retrieved",
+		Data:    playlists,
+	}
+
+	// C: this means the success response
+	app.writeJSON(w, http.StatusAccepted, responsePayload)
+
+}
+
+func (app *PlaylistService) GetPlaylistByID(w http.ResponseWriter, r *http.Request) {
+
+	// planType := entities.SourceB2C
+	// source := strings.TrimSpace(r.URL.Query().Get("source"))
+	fmt.Println(r.URL)
+	playlistID := chi.URLParam(r, "id")
+	fmt.Println("catch playlist ID:", playlistID)
+	// validate the user against the database
+	// C: since the micro service's request from internal development team, the validity checking
+	// C: of the playlistID could be less strict. If the micro service is facing the public,
+	// C: more stringent checking should be applied to avoid any malicious query.
+
+	playlist, err := app.DBConnection.GetPlaylistByID(r.Context(), playlistID)
+	if err != nil {
+		app.errorJSON(w, errors.New("invalid query"), http.StatusBadRequest)
+		return
+	}
+
+	responsePayload := jsonResponse{
+		Error:   false,
+		Message: "playlists are retrieved",
+		Data:    playlist,
+	}
+
+	// C: this means the success response
+	app.writeJSON(w, http.StatusAccepted, responsePayload)
 }
 
 // 	// validate the user against the database

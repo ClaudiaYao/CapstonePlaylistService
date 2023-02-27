@@ -65,15 +65,8 @@ generate_data:
 
 copy_data:
 ## first, need to copy the generated files to the Postgres docker container
-	docker cp cmd/GenerateData/Generated/. playlist-postgres:/Data
+	docker cp cmd/GenerateData/Generated/. playlist-postgres:/myData
+	docker cp copy_data_to_postgres.sql playlist-postgres:/
 
-## second, open the psql in the Postgres docker container
-	docker exec -it playlist-postgres psql -U postgres
-
-# third, connect to the database and then copy the data files to each table
-	\c playlist;
-	\COPY restaurant FROM Data/restaurant.txt WITH (FORMAT text, DELIMITER '|');
-	\COPY category FROM Data/category.txt WITH (FORMAT text, DELIMITER '|');
-	\COPY playlist FROM Data/playlist.txt WITH (FORMAT text, DELIMITER '|');
-	\COPY dish FROM Data/dish.txt WITH (FORMAT text, DELIMITER '|');
-	\COPY playlist_dish FROM Data/playlist_dish.txt WITH (FORMAT text, DELIMITER '|');
+## second, execute the sql file in the Postgres docker container
+	docker exec -it playlist-postgres psql -U postgres -q -f /copy_data_to_postgres.sql

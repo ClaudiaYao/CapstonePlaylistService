@@ -16,21 +16,21 @@ type DataQuery struct {
 	db *sql.DB
 }
 
-// var db *sql.DB
-
-// func (ds *DataService) GetPlaylistByCrietia(ctx context.Context, criteria map[string]string) ([]Playlist, error) {
-
-// }
-
 func (dq *DataQuery) GetPlaylistByID(ctx context.Context, id string) (*Playlist, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), dbTimeout)
 	defer cancel()
+	fmt.Println("#" + id + "#")
 
 	// C: could refer to the article of golang website:
 	// C: https://go.dev/doc/database/prepared-statements
-	query := `SELECT id, playlist_name, category_code, price, dietary_info, 
+	query := `SELECT id, name, category_code, dietary_info, 
 	status, start_date, end_date, popularity FROM playlist where id=$1`
 	row := dq.db.QueryRowContext(ctx, query, id)
+
+	if row.Err() != nil {
+		return nil, row.Err()
+	}
+	fmt.Println(row)
 
 	var item Playlist
 	if err := row.Scan(
@@ -121,7 +121,7 @@ func (dq *DataQuery) GetMultipleDishesByID(ctx context.Context, dishesID []inter
 // The following are insertion operation. They might not be used in the frontend
 // Quest, but will be used in creating mock data to display the functionality
 
-const insertPlaylistQuery string = `Insert into playlist (id, playlist_name, category_code,
+const insertPlaylistQuery string = `Insert into playlist (id, name, category_code,
 	dietary_info, status, start_date, end_date,
 	popularity) values 
 	($1, $2, $3, $4, $5, $6, $7, $8)`
@@ -205,8 +205,7 @@ func (dq *DataQuery) InsertNewRestaurant(ctx context.Context, arg Restaurant) (s
 }
 
 const getPlaylistByCategory = `
-SELECT id, playlist_name, category_code, dietary_info, status, start_date, end_date, popularity FROM playlist where category_code=$1 LIMIT 10
-`
+SELECT id, name, category_code, dietary_info, status, start_date, end_date, popularity FROM playlist where category_code=$1 LIMIT 10`
 
 func (dq *DataQuery) GetPlaylistByCategory(ctx context.Context, categoryCode string) ([]Playlist, error) {
 	rows, err := dq.db.QueryContext(ctx, getPlaylistByCategory, categoryCode)
@@ -214,7 +213,7 @@ func (dq *DataQuery) GetPlaylistByCategory(ctx context.Context, categoryCode str
 		return nil, err
 	}
 	defer rows.Close()
-
+	fmt.Println("get rows by category")
 	var items []Playlist
 	for rows.Next() {
 		var i Playlist
@@ -231,6 +230,7 @@ func (dq *DataQuery) GetPlaylistByCategory(ctx context.Context, categoryCode str
 			return nil, err
 		}
 		items = append(items, i)
+		fmt.Println(items)
 	}
 	if err := rows.Close(); err != nil {
 		return nil, err
