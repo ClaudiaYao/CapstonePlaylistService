@@ -5,7 +5,7 @@ services:
     image: 'postgres:latest'
     container_name: playlist-postgres
     ports:
-      - "5432:5432"
+      - "5431:5432"
     deploy:
       mode: replicated
       replicas: 1
@@ -22,7 +22,7 @@ services:
       context: .
       dockerfile: playlist-service.dockerfile
     ports:
-      - '8080:8080'
+      - '8081:8081'
     deploy:
       mode: replicated
       replicas: 1
