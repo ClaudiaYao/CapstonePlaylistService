@@ -15,7 +15,7 @@ COPY .env ./cmd/
 RUN go build -o playlist-service ./cmd
 
 # Tells Docker which network port your container listens on
-EXPOSE 8080
+EXPOSE 8081
 
 # Specifies the executable command that runs when the container starts
 #RUN [ “/playlist-service”]

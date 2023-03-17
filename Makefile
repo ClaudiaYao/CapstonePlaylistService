@@ -2,11 +2,12 @@
 -include .env
 
 PLAYLIST_BINARY=playlist-service
-PSQL_CONN=host=$(DB_HOST) user=$(DB_USER) password=$(DB_PASS) dbname=$(DB_NAME) sslmode=disable
+
+// PSQL_CONN=host=$(DB_HOST) user=$(DB_USER) password=$(DB_PASS) dbname=$(DB_NAME) sslmode=disable
+
 
 tools: ## Install general tools globally (not in the project)
-	go get -u github.com/grailbio-external/goose/cmd/goose
-## go install github.com/kyleconroy/sqlc/cmd/sqlc@latest
+	brew install golang-migrate
 
 ## up: starts all containers in the background without forcing build
 up:
@@ -15,11 +16,12 @@ up:
 	@echo "Docker images started!"
 
 ## up_build: stops docker-compose (if running), builds all projects and starts docker compose
-## this command will install and initiate all the images and get ready for the environment 
+## this command will install and initiate all the images and get ready for the environment
 ## by running docker-compose.yml
 #build_playlist
 # up_build will run docker-compose building and then running process
-up_build: 
+
+up_build:
 	@echo "Stopping docker images (if running...)"
 	docker-compose down
 	@echo "Building (when required) and starting docker images..."
@@ -41,19 +43,9 @@ build_playlist:
 	@echo "Done!"
 
 
-## references. No need this . docker-compose.yml has started the postgresql container
-##migrate_db_run:
-##	docker run --name postgres -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password -d postgres:14.0
-
-##createdb: 
-##	docker exec -it postgres12 createdb --username=root --owner=root FoodPanda9
-
-## when remove the container, the db is automatically dropped
-##dropdb:
-##	docker exec -it playlist-service-postgres-1 dropdb $(DB_NAME)
-## refer to: https://github.com/pressly/goose
-migrateup: 
-	goose -dir resources/database/migration/ postgres "${PSQL_CONN}" up
+migrateup:
+# goose -dir resources/database/migration/ postgres "${PSQL_CONN}" up
+	migrate -path resources/database/migration/ -database "postgresql://postgres:password@localhost:5431/playlist?sslmode=disable" -verbose up
 
 migratedown:
 	goose -dir resources/database/migration/ postgres "${PSQL_CONN}" down

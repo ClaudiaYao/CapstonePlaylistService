@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS playlist_dish;
+DROP TABLE IF EXISTS dish;
+DROP TABLE IF EXISTS restaurant;
+DROP TABLE IF EXISTS address;
+DROP TABLE IF EXISTS playlist_dish;
+DROP TABLE IF EXISTS playlist;
+DROP TABLE IF EXISTS category;
