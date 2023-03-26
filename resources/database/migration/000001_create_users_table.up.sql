@@ -3,15 +3,15 @@ CREATE TABLE "restaurant" (
   "name" varchar(30) NOT NULL,
   "unit_number" varchar(10) NOT NULL,
   "address_line1" varchar(50) NOT NULL,
-  "address_line2" varchar(50),
-  "postal_code" int
+  "address_line2" varchar(50) NOT NULL,
+  "postal_code" int NOT NULL
 );
 
 CREATE TABLE "playlist" (
   "id" varchar PRIMARY KEY,
   "name" varchar(50) NOT NULL,
   "category_code" varchar NOT NULL,
-  "dietary_info" varchar(100),
+  "dietary_info" varchar(100) NOT NULL,
   "status" varchar(100) NOT NULL,
   "start_date" date NOT NULL,
   "end_date" date NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE "playlist" (
 CREATE TABLE "category" (
   "code" varchar PRIMARY KEY,
   "name" varchar(50) NOT NULL,
-  "features" varchar
+  "features" varchar NOT NULL
 );
 
 CREATE TABLE "playlist_dish" (
@@ -36,9 +36,9 @@ CREATE TABLE "dish" (
   "name" varchar(50) NOT NULL,
   "restaurant_id" varchar NOT NULL,
   "price" float8 NOT NULL,
-  "cuisine_style" varchar(100),
-  "ingredient" varchar(100),
-  "comment" varchar(200)
+  "cuisine_style" varchar(100) NOT NULL,
+  "ingredient" varchar(100) NOT NULL,
+  "comment" varchar(200) NOT NULL
 );
 
 CREATE INDEX ON "restaurant" ("id");

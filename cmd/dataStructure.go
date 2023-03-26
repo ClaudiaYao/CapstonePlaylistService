@@ -24,7 +24,7 @@ type Dish struct {
 
 type Playlist struct {
 	ID           string    `json:"id"`
-	PlaylistName string    `json:"playlistName"`
+	Name         string    `json:"name"`
 	CategoryCode string    `json:"categoryCode"`
 	DietaryInfo  string    `json:"dietaryInfo"`
 	Status       string    `json:"status"`
@@ -46,6 +46,12 @@ type Restaurant struct {
 	AddressLine1 string `json:"addressLine1"`
 	AddressLine2 string `json:"addressLine2"`
 	PostalCode   int    `json:"postalCode"`
+}
+
+type PlaylistServiceResponseDataDTO struct {
+	Playlist       Playlist
+	DishIncluded   []Dish
+	RestaurantInfo []Restaurant
 }
 
 // This struct includes all the data returned to the request

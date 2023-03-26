@@ -5,50 +5,47 @@
 package db
 
 import (
-	"database/sql"
 	"time"
 )
 
 type Category struct {
-	Code     string         `json:"code"`
-	Name     string         `json:"name"`
-	Features sql.NullString `json:"features"`
+	Code     string `json:"code"`
+	Name     string `json:"name"`
+	Features string `json:"features"`
 }
 
 type Dish struct {
-	ID           string         `json:"id"`
-	Name         string         `json:"name"`
-	RestaurantID string         `json:"restaurantID"`
-	Price        float64        `json:"price"`
-	CuisineStyle sql.NullString `json:"cuisineStyle"`
-	Ingredient   sql.NullString `json:"ingredient"`
-	Comment      sql.NullString `json:"comment"`
-	ServeTime    time.Time      `json:"serveTime"`
+	ID           string  `json:"id"`
+	Name         string  `json:"name"`
+	RestaurantID string  `json:"restaurantID"`
+	Price        float64 `json:"price"`
+	CuisineStyle string  `json:"cuisineStyle"`
+	Ingredient   string  `json:"ingredient"`
+	Comment      string  `json:"comment"`
 }
 
 type Playlist struct {
-	ID           string         `json:"id"`
-	PlaylistName string         `json:"playlistName"`
-	CategoryCode string         `json:"categoryCode"`
-	Price        float64        `json:"price"`
-	DietaryInfo  sql.NullString `json:"dietaryInfo"`
-	Status       string         `json:"status"`
-	StartDate    time.Time      `json:"startDate"`
-	EndDate      time.Time      `json:"endDate"`
-	Popularity   int32          `json:"popularity"`
+	ID           string    `json:"id"`
+	Name         string    `json:"name"`
+	CategoryCode string    `json:"categoryCode"`
+	DietaryInfo  string    `json:"dietaryInfo"`
+	Status       string    `json:"status"`
+	StartDate    time.Time `json:"startDate"`
+	EndDate      time.Time `json:"endDate"`
+	Popularity   int32     `json:"popularity"`
 }
 
 type PlaylistDish struct {
-	ID         int32  `json:"id"`
+	ID         string `json:"id"`
 	DishID     string `json:"dishID"`
 	PlaylistID string `json:"playlistID"`
 }
 
 type Restaurant struct {
-	ID           string         `json:"id"`
-	Name         string         `json:"name"`
-	UnitNumber   string         `json:"unitNumber"`
-	AddressLine1 string         `json:"addressLine1"`
-	AddressLine2 sql.NullString `json:"addressLine2"`
-	PostalCode   sql.NullInt32  `json:"postalCode"`
+	ID           string `json:"id"`
+	Name         string `json:"name"`
+	UnitNumber   string `json:"unitNumber"`
+	AddressLine1 string `json:"addressLine1"`
+	AddressLine2 string `json:"addressLine2"`
+	PostalCode   int32  `json:"postalCode"`
 }

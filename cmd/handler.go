@@ -8,9 +8,6 @@ import (
 	"github.com/go-chi/chi"
 )
 
-// C: this PlaylistService is responsible for transfering information request/response
-// C: the database operation is conducted by its member *sql.DB
-// C: when designing API or micro-service, the service request passes data via JSON
 func (app *PlaylistService) CreatePlaylist(w http.ResponseWriter, r *http.Request) {
 	var requestPayload Playlist
 
@@ -20,14 +17,7 @@ func (app *PlaylistService) CreatePlaylist(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	// C: since the requestPayload is struct Playlist format, we need to convert it into
-	// C: slice of interface{}, so that the CreatePlaylist could use
-	// data := []interface{}{requestPayload.ID, requestPayload.PlaylistName,
-	// 	requestPayload.CategoryCode, requestPayload.Price, requestPayload.DietaryInfo,
-	// 	requestPayload.Status, requestPayload.StartDate, requestPayload.EndDate,
-	// 	requestPayload.Popularity}
-
-	playlistID, err := app.DBConnection.InsertPlaylist(r.Context(), requestPayload)
+	playlist, err := app.DBConnection.InsertNewPlaylist(r.Context(), requestPayload)
 	if err != nil {
 		app.errorJSON(w, err, http.StatusBadRequest)
 		return
@@ -35,16 +25,13 @@ func (app *PlaylistService) CreatePlaylist(w http.ResponseWriter, r *http.Reques
 
 	responsePayload := jsonResponse{
 		Error:   false,
-		Message: fmt.Sprintf("playlist is created: %s", playlistID),
+		Message: fmt.Sprintf("playlist is created: %s", playlist.ID),
+		Data:    playlist,
 	}
 
 	// C: this means the success response
 	app.writeJSON(w, http.StatusAccepted, responsePayload)
 }
-
-// func GetPlaylistByCrietia(w http.ResponseWriter, r *http.Request) error {
-
-// }
 
 func (app *PlaylistService) Welcome(w http.ResponseWriter, r *http.Request) {
 	app.writeJSON(w, http.StatusAccepted, "Welcome to Playlist service!")
@@ -59,14 +46,9 @@ func (app *PlaylistService) GetRestaurantByID(w http.ResponseWriter, r *http.Req
 		return
 	}
 
-	// validate the user against the database
-	// C: since the micro service's request from internal development team, the validity checking
-	// C: of the playlistID could be less strict. If the micro service is facing the public,
-	// C: more stringent checking should be applied to avoid any malicious query.
-
-	restaurant, err := app.DBConnection.GetPlaylistByID(r.Context(), restaurantID)
+	restaurant, err := app.DBConnection.GetRestaurantsByID(r.Context(), restaurantID)
 	if err != nil {
-		app.errorJSON(w, errors.New("invalid credentials"), http.StatusBadRequest)
+		app.errorJSON(w, errors.New("wrong query for restaurant table"), http.StatusBadRequest)
 		return
 	}
 
@@ -89,14 +71,9 @@ func (app *PlaylistService) GetDishByID(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	// validate the user against the database
-	// C: since the micro service's request from internal development team, the validity checking
-	// C: of the playlistID could be less strict. If the micro service is facing the public,
-	// C: more stringent checking should be applied to avoid any malicious query.
-
-	dish, err := app.DBConnection.GetPlaylistByID(r.Context(), dishID)
+	dish, err := app.DBConnection.GetDishByID(r.Context(), dishID)
 	if err != nil {
-		app.errorJSON(w, errors.New("invalid credentials"), http.StatusBadRequest)
+		app.errorJSON(w, errors.New("wrong query for the Dish table"), http.StatusBadRequest)
 		return
 	}
 
@@ -110,26 +87,47 @@ func (app *PlaylistService) GetDishByID(w http.ResponseWriter, r *http.Request) 
 	app.writeJSON(w, http.StatusAccepted, responsePayload)
 }
 
-func (app *PlaylistService) Playlists(w http.ResponseWriter, r *http.Request) {
+func (app *PlaylistService) wrapGetMultiplePlaylists(w http.ResponseWriter, r *http.Request, playlists *[]Playlist) ([]PlaylistServiceResponseDataDTO, error) {
+	responseData := []PlaylistServiceResponseDataDTO{}
 
-	// planType := entities.SourceB2C
-	// source := strings.TrimSpace(r.URL.Query().Get("source"))
+	for _, playlist := range *playlists {
+		fmt.Println(playlist.ID)
+		dishes, restaurants, err := app.GetPlaylistInfo(r.Context(), playlist.ID)
 
-	// validate the user against the database
-	// C: since the micro service's request from internal development team, the validity checking
-	// C: of the playlistID could be less strict. If the micro service is facing the public,
-	// C: more stringent checking should be applied to avoid any malicious query.
+		if err != nil {
+			return nil, errors.New("invalid query for the playlist and other tables,")
+		}
+
+		responseDTO := PlaylistServiceResponseDataDTO{
+			Playlist:       playlist,
+			DishIncluded:   dishes,
+			RestaurantInfo: restaurants,
+		}
+		responseData = append(responseData, responseDTO)
+	}
+
+	return responseData, nil
+
+}
+
+func (app *PlaylistService) GetPopularPlaylists(w http.ResponseWriter, r *http.Request) {
 
 	playlists, err := app.DBConnection.GetPlaylistByPopularity(r.Context())
 	if err != nil {
-		app.errorJSON(w, errors.New("invalid query"), http.StatusBadRequest)
+		app.errorJSON(w, errors.New("invalid query to playlist table"), http.StatusBadRequest)
+		return
+	}
+
+	responseData, err := app.wrapGetMultiplePlaylists(w, r, &playlists)
+	if err != nil {
+		app.errorJSON(w, err, http.StatusBadRequest)
 		return
 	}
 
 	responsePayload := jsonResponse{
 		Error:   false,
 		Message: "playlists are retrieved",
-		Data:    playlists,
+		Data:    responseData,
 	}
 
 	// C: this means the success response
@@ -145,21 +143,23 @@ func (app *PlaylistService) GetPlaylistByCategory(w http.ResponseWriter, r *http
 
 	categoryCode := chi.URLParam(r, "categoryCode")
 	fmt.Println("catch category:", categoryCode)
-	// validate the user against the database
-	// C: since the micro service's request from internal development team, the validity checking
-	// C: of the playlistID could be less strict. If the micro service is facing the public,
-	// C: more stringent checking should be applied to avoid any malicious query.
 
 	playlists, err := app.DBConnection.GetPlaylistByCategory(r.Context(), categoryCode)
 	if err != nil {
-		app.errorJSON(w, errors.New("invalid query"), http.StatusBadRequest)
+		app.errorJSON(w, errors.New("invalid query for playlist table"), http.StatusBadRequest)
+		return
+	}
+
+	responseData, err := app.wrapGetMultiplePlaylists(w, r, &playlists)
+	if err != nil {
+		app.errorJSON(w, err, http.StatusBadRequest)
 		return
 	}
 
 	responsePayload := jsonResponse{
 		Error:   false,
-		Message: "playlists are retrieved",
-		Data:    playlists,
+		Message: "playlists by category are retrieved: " + categoryCode,
+		Data:    responseData,
 	}
 
 	// C: this means the success response
@@ -174,21 +174,30 @@ func (app *PlaylistService) GetPlaylistByID(w http.ResponseWriter, r *http.Reque
 	fmt.Println(r.URL)
 	playlistID := chi.URLParam(r, "id")
 	fmt.Println("catch playlist ID:", playlistID)
-	// validate the user against the database
-	// C: since the micro service's request from internal development team, the validity checking
-	// C: of the playlistID could be less strict. If the micro service is facing the public,
-	// C: more stringent checking should be applied to avoid any malicious query.
 
 	playlist, err := app.DBConnection.GetPlaylistByID(r.Context(), playlistID)
 	if err != nil {
-		app.errorJSON(w, errors.New("invalid query"), http.StatusBadRequest)
+		app.errorJSON(w, err, http.StatusBadRequest)
 		return
+	}
+
+	dishes, restaurants, err := app.GetPlaylistInfo(r.Context(), playlistID)
+
+	if err != nil {
+		app.errorJSON(w, err, http.StatusBadRequest)
+		return
+	}
+
+	responseDTO := PlaylistServiceResponseDataDTO{
+		Playlist:       playlist,
+		DishIncluded:   dishes,
+		RestaurantInfo: restaurants,
 	}
 
 	responsePayload := jsonResponse{
 		Error:   false,
 		Message: "playlists are retrieved",
-		Data:    playlist,
+		Data:    responseDTO,
 	}
 
 	// C: this means the success response

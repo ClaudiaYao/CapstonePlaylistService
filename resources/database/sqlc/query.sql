@@ -1,56 +1,58 @@
--- name: GetRestaurantByID :one
-SELECT * FROM restaurant
-WHERE id = $1 LIMIT 1;
 
--- name: GetMultiRestaurantsByID :many
-SELECT  FROM restaurant
-WHERE id in ($1);
+-- name: GetRestaurantsByID :one
+SELECT * FROM restaurant
+WHERE id=$1;
+
+-- name: GetDishByID :one
+SELECT * FROM dish
+WHERE id=$1;
 
 -- name: GetPlaylistByID :one
 SELECT * FROM playlist where id=$1;
 
 
 -- name: GetPlaylistByPopularity :many
-SELECT * FROM playlist order by popularity DESC LIMIT 10;
+SELECT * FROM playlist where status=Active order by popularity DESC LIMIT 10;
 
 -- name: GetPlaylistByCategory :many
 SELECT * FROM playlist where category_code=$1 LIMIT 10;
 
--- name: GetDishByID :one
-SELECT * FROM dish where id=$1;
+-- name: GetDishesByPlaylistID :many
+SELECT dish.ID, Name, restaurant_id, price, cuisine_style, Ingredient,
+Comment FROM dish inner join playlist_dish on playlist_dish.playlist_id=$1;
 
--- name: GetMultipleDishesByID :many
-SELECT * FROM dish where id in ($1);
+-- name: GetDishesByRestaurantID :many
+SELECT * FROM dish where restaurant_id=$1;
 
--- name: CreatePlaylist :one
-Insert into playlist (id, playlist_name, category_code,
+-- name: InsertNewPlaylist :one
+Insert into playlist (id, name, category_code,
   dietary_info, status, start_date, end_date,
   popularity) values 
   ($1, $2, $3, $4, $5, $6, $7, $8)
-  Returning id;
+  Returning *;
 
 -- name: InsertNewRestaurant :one
 Insert into restaurant (id, name,
   unit_number, address_line1,address_line2,
   postal_code) values 
   ($1, $2, $3, $4, $5, $6)
-  Returning id;
+  Returning *;
 
 -- name: InsertNewCategory :one
 Insert into category (code, name, features) values  
   ($1, $2, $3)
   Returning code;
 
--- name: InsertNewPlaylistDish :one
+-- name: InsertNewPlaylistDishRelation :one
 Insert into playlist_dish (id, dish_id, playlist_id) values 
   ($1, $2, $3)
-  Returning id;
+  Returning *;
 
 -- name: InsertNewDish :one
 Insert into dish (id, name, restaurant_id, price,
   cuisine_style, ingredient,
-  comment, serve_time) values 
-  ($1, $2, $3, $4, $5, $6, $7, $8)
-  Returning id;
+  comment) values 
+  ($1, $2, $3, $4, $5, $6, $7)
+  Returning *;
 
 
