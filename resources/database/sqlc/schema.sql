@@ -3,16 +3,20 @@ CREATE TABLE "restaurant" (
   "name" varchar(30) NOT NULL,
   "unit_number" varchar(10) NOT NULL,
   "address_line1" varchar(50) NOT NULL,
-  "address_line2" varchar(50),
-  "postal_code" int
+  "address_line2" varchar(50) NOT NULL,
+  "postal_code" int NOT NULL,
+  "tag" varchar NOT NULL,
+  "operate_hours" varchar NOT NULL,
+  "logo_url" varchar NOT NULL,
+  "header_url" varchar NOT NULL
 );
 
 CREATE TABLE "playlist" (
   "id" varchar PRIMARY KEY,
   "name" varchar(50) NOT NULL,
   "category_code" varchar NOT NULL,
-  "dietary_info" varchar(100),
-  "status" varchar(50) NOT NULL,
+  "dietary_info" varchar(100) NOT NULL,
+  "status" varchar(100) NOT NULL,
   "start_date" date NOT NULL,
   "end_date" date NOT NULL,
   "popularity" int NOT NULL
@@ -22,7 +26,7 @@ CREATE TABLE "playlist" (
 CREATE TABLE "category" (
   "code" varchar PRIMARY KEY,
   "name" varchar(50) NOT NULL,
-  "features" varchar(50)
+  "features" varchar NOT NULL
 );
 
 CREATE TABLE "playlist_dish" (
@@ -33,20 +37,19 @@ CREATE TABLE "playlist_dish" (
 
 CREATE TABLE "dish" (
   "id" varchar PRIMARY KEY,
-  "name" varchar(20) NOT NULL,
+  "name" varchar(50) NOT NULL,
   "restaurant_id" varchar NOT NULL,
   "price" float8 NOT NULL,
-  "cuisine_style" varchar(50),
-  "ingredient" varchar(50),
-  "comment" varchar(200),
-  "serve_time" date NOT NULL
+  "cuisine_style" varchar(100) NOT NULL,
+  "ingredient" varchar(100) NOT NULL,
+  "dish_options" varchar NOT NULL,
+  "comment" varchar(200) NOT NULL,
+  "image_url" varchar(200) NOT NUll
 );
 
 CREATE INDEX ON "restaurant" ("id");
 
 CREATE INDEX ON "playlist" ("id");
-
-CREATE INDEX ON "address" ("id");
 
 CREATE INDEX ON "category" ("code");
 
