@@ -64,12 +64,7 @@ func (app *PlaylistService) GetRestaurantByID(w http.ResponseWriter, r *http.Req
 
 func (app *PlaylistService) GetDishByID(w http.ResponseWriter, r *http.Request) {
 
-	var dishID string
-	err := app.readJSON(w, r, &dishID)
-	if err != nil {
-		app.errorJSON(w, err, http.StatusBadRequest)
-		return
-	}
+	dishID := chi.URLParam(r, "dishId")
 
 	dish, err := app.DBConnection.GetDishByID(r.Context(), dishID)
 	if err != nil {
@@ -85,6 +80,46 @@ func (app *PlaylistService) GetDishByID(w http.ResponseWriter, r *http.Request) 
 
 	// C: this means the success response
 	app.writeJSON(w, http.StatusAccepted, responsePayload)
+}
+
+func (app *PlaylistService) GetDishesByRestaurant(w http.ResponseWriter, r *http.Request) {
+
+	restaurantID := chi.URLParam(r, "restaurantId")
+
+	responseDTOs, err := app.GetRestaurantInfo(r.Context(), restaurantID)
+	if err != nil {
+		app.errorJSON(w, errors.New("wrong query for the restaurant table"), http.StatusBadRequest)
+		return
+	}
+
+	responsePayload := jsonResponse{
+		Error:   false,
+		Message: fmt.Sprintf("retrieve all the restaurants info correctly"),
+		Data:    *responseDTOs,
+	}
+
+	// C: this means the success response
+	app.writeJSON(w, http.StatusAccepted, responsePayload)
+
+}
+
+func (app *PlaylistService) GetAllRestaurantsInfo(w http.ResponseWriter, r *http.Request) {
+
+	dto, err := app.GetAllRestaurantInfo(r.Context())
+	if err != nil {
+		app.errorJSON(w, errors.New("wrong query for the restaurant table"), http.StatusBadRequest)
+		return
+	}
+
+	responsePayload := jsonResponse{
+		Error:   false,
+		Message: fmt.Sprintf("restaurant information is retrieved"),
+		Data:    *dto,
+	}
+
+	// C: this means the success response
+	app.writeJSON(w, http.StatusAccepted, responsePayload)
+
 }
 
 func (app *PlaylistService) wrapGetMultiplePlaylists(w http.ResponseWriter, r *http.Request, playlists *[]Playlist) ([]PlaylistServiceResponseDataDTO, error) {
@@ -112,7 +147,7 @@ func (app *PlaylistService) wrapGetMultiplePlaylists(w http.ResponseWriter, r *h
 
 func (app *PlaylistService) GetPopularPlaylists(w http.ResponseWriter, r *http.Request) {
 
-	playlists, err := app.DBConnection.GetPlaylistByPopularity(r.Context())
+	playlists, err := app.DBConnection.GetPlaylistsByPopularity(r.Context())
 	if err != nil {
 		app.errorJSON(w, errors.New("invalid query to playlist table"), http.StatusBadRequest)
 		return
@@ -144,7 +179,7 @@ func (app *PlaylistService) GetPlaylistByCategory(w http.ResponseWriter, r *http
 	categoryCode := chi.URLParam(r, "categoryCode")
 	fmt.Println("catch category:", categoryCode)
 
-	playlists, err := app.DBConnection.GetPlaylistByCategory(r.Context(), categoryCode)
+	playlists, err := app.DBConnection.GetPlaylistsByCategory(r.Context(), categoryCode)
 	if err != nil {
 		app.errorJSON(w, errors.New("invalid query for playlist table"), http.StatusBadRequest)
 		return

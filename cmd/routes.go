@@ -36,6 +36,8 @@ func (app *PlaylistService) routes() http.Handler {
 		mux.Post("/new", app.CreatePlaylist)
 		mux.Get("/", app.GetPopularPlaylists)
 		mux.Get("/category/{categoryCode}", app.GetPlaylistByCategory)
+		mux.Get("/restaurant/{restaurantId}", app.GetDishesByRestaurant)
+		mux.Get("/restaurants", app.GetAllRestaurantsInfo)
 		mux.Get("/{id}", app.GetPlaylistByID)
 
 	})

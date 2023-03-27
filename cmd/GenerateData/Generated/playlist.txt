@@ -1,7 +1,12 @@
-PlayHVtJg9GdbmQdRFUaD6ojWk|Sunny Breakfast Platter|Sin|nulla consequatur natus tempore officiis|Active|2023-03-22|2023-06-06|2
-PlayYEsr4xLEhSQnX8xakygfeW|Seafood Lover|Mal|perferendis voluptatibus veniam|Expired|2023-03-30|2023-06-14|5
-PlayskbyQmxGgkiypnzzYmX67j|Nanyang Flavour|Mal|veniam ut excepturi nulla conse|Active|2023-03-09|2023-05-24|2
-Playygw3vDJNGTGcBiHwZxUwVB|Medditerean Goumet|Tur|nulla consequatur natus tempore officiis|Pending|2023-03-27|2023-06-11|1
-Playjs3kz4aCNhoJJgn57rqGad|Chinese Traditional|Chi|fugit, amet quia nulla culpa|Pending|2023-04-03|2023-06-18|1
-Playd7pCe9R5QmtqtzydAT5tRE|Malay Foodie|Chi|veniam ut excepturi nulla conse|Pending|2023-04-03|2023-06-18|1
-Playh3EQ9fKzW2cLwYqMQXg6ga|Thailand Sour|Mal|fugit, amet quia nulla culpa|Active|2023-02-22|2023-05-07|2
+Playm8yyCGMM7M97mqWDw7A9k5|Sunny Breakfast Platter|Tur|nulla consequatur natus tempore officiis|Expired|2023-03-10|2023-05-25|1
+PlayUVCnog6ZUCjBoWCC24QUe9|Seafood Lover|Sin|fugit, amet quia nulla culpa|Expired|2023-04-14|2023-06-29|3
+PlayEFiC84BupzrNRnsmcKDYZS|Nanyang Flavour|Ind|veniam ut excepturi nulla conse|Pending|2023-03-03|2023-05-18|5
+Play3W3dvVSzd5t2CZghRgrKzn|Medditerean Goumet|Vie|perferendis voluptatibus veniam|Expired|2023-03-26|2023-06-10|4
+PlayTgzkRLLeMcX5VFrxMeTcUE|Chinese Traditional|Jap|perferendis voluptatibus veniam|Pending|2023-03-27|2023-06-11|5
+PlaywyoHcUtsCDocmxDrKNabGY|Malay Foodie|Tur|perferendis voluptatibus veniam|Pending|2023-04-11|2023-06-26|2
+PlayWtzMdXj3zBBga3baU2yRdW|Thailand Sour|Kor|veniam ut excepturi nulla conse|Pending|2023-04-03|2023-06-18|5
+Play6dsoknTNsPMSoft9nJAFDN|Happy Hour|Chi|nulla consequatur natus tempore officiis|Pending|2023-03-27|2023-06-11|1
+Playbj9Gg2TjxjFTqcgYvGJCeb|Weekend Feast |Ind|perferendis voluptatibus veniam|Active|2023-03-08|2023-05-23|4
+PlaygYunp4CrHoC2qgBxTfr6M4|Foodie Special|Chi|nulla consequatur natus tempore officiis|Active|2023-04-21|2023-07-06|2
+PlayuM4BNzPBShgmicpwGWKUfT|Festival Treat|Sin|nulla consequatur natus tempore officiis|Active|2023-04-15|2023-06-30|1
+PlayMjgeMmDFgM4qJcNkjD9637|Aprial Day|Tha|fugit, amet quia nulla culpa|Pending|2023-04-23|2023-07-08|3

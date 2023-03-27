@@ -10,48 +10,30 @@ import (
 	"time"
 )
 
-const getDishByID = `-- name: GetDishByID :one
-SELECT id, name, restaurant_id, price, cuisine_style, ingredient, comment FROM dish
-WHERE id=$1
+const getAllRestaurants = `-- name: GetAllRestaurants :many
+SELECT id, name, unit_number, address_line1, address_line2, postal_code, tag, operate_hours, logo_url, header_url FROM restaurant order by name
 `
 
-func (q *Queries) GetDishByID(ctx context.Context, id string) (Dish, error) {
-	row := q.db.QueryRowContext(ctx, getDishByID, id)
-	var i Dish
-	err := row.Scan(
-		&i.ID,
-		&i.Name,
-		&i.RestaurantID,
-		&i.Price,
-		&i.CuisineStyle,
-		&i.Ingredient,
-		&i.Comment,
-	)
-	return i, err
-}
-
-const getDishesByPlaylistID = `-- name: GetDishesByPlaylistID :many
-SELECT dish.ID, Name, restaurant_id, price, cuisine_style, Ingredient,
-Comment FROM dish inner join playlist_dish on playlist_dish.playlist_id=$1
-`
-
-func (q *Queries) GetDishesByPlaylistID(ctx context.Context, playlistID string) ([]Dish, error) {
-	rows, err := q.db.QueryContext(ctx, getDishesByPlaylistID, playlistID)
+func (q *Queries) GetAllRestaurants(ctx context.Context) ([]Restaurant, error) {
+	rows, err := q.db.QueryContext(ctx, getAllRestaurants)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Dish
+	var items []Restaurant
 	for rows.Next() {
-		var i Dish
+		var i Restaurant
 		if err := rows.Scan(
 			&i.ID,
 			&i.Name,
-			&i.RestaurantID,
-			&i.Price,
-			&i.CuisineStyle,
-			&i.Ingredient,
-			&i.Comment,
+			&i.UnitNumber,
+			&i.AddressLine1,
+			&i.AddressLine2,
+			&i.PostalCode,
+			&i.Tag,
+			&i.OperateHours,
+			&i.LogoUrl,
+			&i.HeaderUrl,
 		); err != nil {
 			return nil, err
 		}
@@ -66,8 +48,57 @@ func (q *Queries) GetDishesByPlaylistID(ctx context.Context, playlistID string) 
 	return items, nil
 }
 
+const getDishByID = `-- name: GetDishByID :one
+SELECT id, name, restaurant_id, price, cuisine_style, ingredient, dish_options, comment, image_url FROM dish
+WHERE id=$1
+`
+
+func (q *Queries) GetDishByID(ctx context.Context, id string) (Dish, error) {
+	row := q.db.QueryRowContext(ctx, getDishByID, id)
+	var i Dish
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.RestaurantID,
+		&i.Price,
+		&i.CuisineStyle,
+		&i.Ingredient,
+		&i.DishOptions,
+		&i.Comment,
+		&i.ImageUrl,
+	)
+	return i, err
+}
+
+const getDishesByPlaylistID = `-- name: GetDishesByPlaylistID :many
+SELECT dish_id from playlist_dish where playlist_id=$1
+`
+
+func (q *Queries) GetDishesByPlaylistID(ctx context.Context, playlistID string) ([]string, error) {
+	rows, err := q.db.QueryContext(ctx, getDishesByPlaylistID, playlistID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []string
+	for rows.Next() {
+		var dish_id string
+		if err := rows.Scan(&dish_id); err != nil {
+			return nil, err
+		}
+		items = append(items, dish_id)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getDishesByRestaurantID = `-- name: GetDishesByRestaurantID :many
-SELECT id, name, restaurant_id, price, cuisine_style, ingredient, comment FROM dish where restaurant_id=$1
+SELECT id, name, restaurant_id, price, cuisine_style, ingredient, dish_options, comment, image_url FROM dish where restaurant_id=$1 order by name
 `
 
 func (q *Queries) GetDishesByRestaurantID(ctx context.Context, restaurantID string) ([]Dish, error) {
@@ -86,43 +117,9 @@ func (q *Queries) GetDishesByRestaurantID(ctx context.Context, restaurantID stri
 			&i.Price,
 			&i.CuisineStyle,
 			&i.Ingredient,
+			&i.DishOptions,
 			&i.Comment,
-		); err != nil {
-			return nil, err
-		}
-		items = append(items, i)
-	}
-	if err := rows.Close(); err != nil {
-		return nil, err
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
-}
-
-const getPlaylistByCategory = `-- name: GetPlaylistByCategory :many
-SELECT id, name, category_code, dietary_info, status, start_date, end_date, popularity FROM playlist where category_code=$1 LIMIT 10
-`
-
-func (q *Queries) GetPlaylistByCategory(ctx context.Context, categoryCode string) ([]Playlist, error) {
-	rows, err := q.db.QueryContext(ctx, getPlaylistByCategory, categoryCode)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var items []Playlist
-	for rows.Next() {
-		var i Playlist
-		if err := rows.Scan(
-			&i.ID,
-			&i.Name,
-			&i.CategoryCode,
-			&i.DietaryInfo,
-			&i.Status,
-			&i.StartDate,
-			&i.EndDate,
-			&i.Popularity,
+			&i.ImageUrl,
 		); err != nil {
 			return nil, err
 		}
@@ -157,12 +154,12 @@ func (q *Queries) GetPlaylistByID(ctx context.Context, id string) (Playlist, err
 	return i, err
 }
 
-const getPlaylistByPopularity = `-- name: GetPlaylistByPopularity :many
-SELECT id, name, category_code, dietary_info, status, start_date, end_date, popularity FROM playlist where status=Active order by popularity DESC LIMIT 10
+const getPlaylistsByCategory = `-- name: GetPlaylistsByCategory :many
+SELECT id, name, category_code, dietary_info, status, start_date, end_date, popularity FROM playlist where category_code=$1 LIMIT 10
 `
 
-func (q *Queries) GetPlaylistByPopularity(ctx context.Context) ([]Playlist, error) {
-	rows, err := q.db.QueryContext(ctx, getPlaylistByPopularity)
+func (q *Queries) GetPlaylistsByCategory(ctx context.Context, categoryCode string) ([]Playlist, error) {
+	rows, err := q.db.QueryContext(ctx, getPlaylistsByCategory, categoryCode)
 	if err != nil {
 		return nil, err
 	}
@@ -193,8 +190,82 @@ func (q *Queries) GetPlaylistByPopularity(ctx context.Context) ([]Playlist, erro
 	return items, nil
 }
 
+const getPlaylistsByPopularity = `-- name: GetPlaylistsByPopularity :many
+SELECT id, name, category_code, dietary_info, status, start_date, end_date, popularity FROM playlist where status='Active' order by popularity DESC LIMIT 10
+`
+
+func (q *Queries) GetPlaylistsByPopularity(ctx context.Context) ([]Playlist, error) {
+	rows, err := q.db.QueryContext(ctx, getPlaylistsByPopularity)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Playlist
+	for rows.Next() {
+		var i Playlist
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.CategoryCode,
+			&i.DietaryInfo,
+			&i.Status,
+			&i.StartDate,
+			&i.EndDate,
+			&i.Popularity,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getRestanrantsByTag = `-- name: GetRestanrantsByTag :many
+SELECT id, name, unit_number, address_line1, address_line2, postal_code, tag, operate_hours, logo_url, header_url FROM restaurant where tag=$1 order by name
+`
+
+func (q *Queries) GetRestanrantsByTag(ctx context.Context, tag string) ([]Restaurant, error) {
+	rows, err := q.db.QueryContext(ctx, getRestanrantsByTag, tag)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Restaurant
+	for rows.Next() {
+		var i Restaurant
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.UnitNumber,
+			&i.AddressLine1,
+			&i.AddressLine2,
+			&i.PostalCode,
+			&i.Tag,
+			&i.OperateHours,
+			&i.LogoUrl,
+			&i.HeaderUrl,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getRestaurantsByID = `-- name: GetRestaurantsByID :one
-SELECT id, name, unit_number, address_line1, address_line2, postal_code FROM restaurant
+SELECT id, name, unit_number, address_line1, address_line2, postal_code, tag, operate_hours, logo_url, header_url FROM restaurant
 WHERE id=$1
 `
 
@@ -208,6 +279,10 @@ func (q *Queries) GetRestaurantsByID(ctx context.Context, id string) (Restaurant
 		&i.AddressLine1,
 		&i.AddressLine2,
 		&i.PostalCode,
+		&i.Tag,
+		&i.OperateHours,
+		&i.LogoUrl,
+		&i.HeaderUrl,
 	)
 	return i, err
 }
@@ -234,9 +309,9 @@ func (q *Queries) InsertNewCategory(ctx context.Context, arg InsertNewCategoryPa
 const insertNewDish = `-- name: InsertNewDish :one
 Insert into dish (id, name, restaurant_id, price,
   cuisine_style, ingredient,
-  comment) values 
-  ($1, $2, $3, $4, $5, $6, $7)
-  Returning id, name, restaurant_id, price, cuisine_style, ingredient, comment
+  comment, dish_options, image_url) values 
+  ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+  Returning id, name, restaurant_id, price, cuisine_style, ingredient, dish_options, comment, image_url
 `
 
 type InsertNewDishParams struct {
@@ -247,6 +322,8 @@ type InsertNewDishParams struct {
 	CuisineStyle string  `json:"cuisineStyle"`
 	Ingredient   string  `json:"ingredient"`
 	Comment      string  `json:"comment"`
+	DishOptions  string  `json:"dishOptions"`
+	ImageUrl     string  `json:"imageUrl"`
 }
 
 func (q *Queries) InsertNewDish(ctx context.Context, arg InsertNewDishParams) (Dish, error) {
@@ -258,6 +335,8 @@ func (q *Queries) InsertNewDish(ctx context.Context, arg InsertNewDishParams) (D
 		arg.CuisineStyle,
 		arg.Ingredient,
 		arg.Comment,
+		arg.DishOptions,
+		arg.ImageUrl,
 	)
 	var i Dish
 	err := row.Scan(
@@ -267,7 +346,9 @@ func (q *Queries) InsertNewDish(ctx context.Context, arg InsertNewDishParams) (D
 		&i.Price,
 		&i.CuisineStyle,
 		&i.Ingredient,
+		&i.DishOptions,
 		&i.Comment,
+		&i.ImageUrl,
 	)
 	return i, err
 }
@@ -338,9 +419,9 @@ func (q *Queries) InsertNewPlaylistDishRelation(ctx context.Context, arg InsertN
 const insertNewRestaurant = `-- name: InsertNewRestaurant :one
 Insert into restaurant (id, name,
   unit_number, address_line1,address_line2,
-  postal_code) values 
-  ($1, $2, $3, $4, $5, $6)
-  Returning id, name, unit_number, address_line1, address_line2, postal_code
+  postal_code, tag, operate_hours, logo_url, header_url) values 
+  ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+  Returning id, name, unit_number, address_line1, address_line2, postal_code, tag, operate_hours, logo_url, header_url
 `
 
 type InsertNewRestaurantParams struct {
@@ -350,6 +431,10 @@ type InsertNewRestaurantParams struct {
 	AddressLine1 string `json:"addressLine1"`
 	AddressLine2 string `json:"addressLine2"`
 	PostalCode   int32  `json:"postalCode"`
+	Tag          string `json:"tag"`
+	OperateHours string `json:"operateHours"`
+	LogoUrl      string `json:"logoUrl"`
+	HeaderUrl    string `json:"headerUrl"`
 }
 
 func (q *Queries) InsertNewRestaurant(ctx context.Context, arg InsertNewRestaurantParams) (Restaurant, error) {
@@ -360,6 +445,10 @@ func (q *Queries) InsertNewRestaurant(ctx context.Context, arg InsertNewRestaura
 		arg.AddressLine1,
 		arg.AddressLine2,
 		arg.PostalCode,
+		arg.Tag,
+		arg.OperateHours,
+		arg.LogoUrl,
+		arg.HeaderUrl,
 	)
 	var i Restaurant
 	err := row.Scan(
@@ -369,6 +458,10 @@ func (q *Queries) InsertNewRestaurant(ctx context.Context, arg InsertNewRestaura
 		&i.AddressLine1,
 		&i.AddressLine2,
 		&i.PostalCode,
+		&i.Tag,
+		&i.OperateHours,
+		&i.LogoUrl,
+		&i.HeaderUrl,
 	)
 	return i, err
 }

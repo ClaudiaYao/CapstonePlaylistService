@@ -4,7 +4,11 @@ CREATE TABLE "restaurant" (
   "unit_number" varchar(10) NOT NULL,
   "address_line1" varchar(50) NOT NULL,
   "address_line2" varchar(50) NOT NULL,
-  "postal_code" int NOT NULL
+  "postal_code" int NOT NULL,
+  "tag" varchar NOT NULL,
+  "operate_hours" varchar NOT NULL,
+  "logo_url" varchar NOT NULL,
+  "header_url" varchar NOT NULL
 );
 
 CREATE TABLE "playlist" (
@@ -38,7 +42,9 @@ CREATE TABLE "dish" (
   "price" float8 NOT NULL,
   "cuisine_style" varchar(100) NOT NULL,
   "ingredient" varchar(100) NOT NULL,
-  "comment" varchar(200) NOT NULL
+  "dish_options" varchar NOT NULL,
+  "comment" varchar(200) NOT NULL,
+  "image_url" varchar(200) NOT NUll
 );
 
 CREATE INDEX ON "restaurant" ("id");

@@ -23,7 +23,7 @@ type address struct {
 
 func main() {
 	categoryCodes := generateCategory()
-	restaurantIDs := generateRestaurant()
+	restaurantIDs := generateRestaurant(categoryCodes)
 	// since Dish table has a foreign reference key to RestaurantID, so we
 	// pass restaurantIDs to the dish generation function
 	dishIDs := generateDish(restaurantIDs)
@@ -60,12 +60,6 @@ func generatePlaylist(categoryCodes []string) []string {
 	}
 	dietaryNumber := len(dietaryInfo)
 
-	statusInfo := []string{
-		"Active",
-		"Expired",
-		"Pending",
-	}
-
 	playlistIDs := []string{}
 
 	// Get each playlist name and then form the table content
@@ -75,12 +69,21 @@ func generatePlaylist(categoryCodes []string) []string {
 		name := scanner.Text()
 		categoryCode := categoryCodes[rand.Intn(categoryNumber)]
 		dietary := dietaryInfo[rand.Intn(dietaryNumber)]
-		statusInfo := statusInfo[rand.Intn(len(statusInfo))]
+
 		startDateRandom := time.Now().AddDate(0, 0, rand.Intn(60)-30)
 		startDate := startDateRandom.Format("2006-01-02")
 		endDateRandom := startDateRandom.AddDate(0, 2, 15)
 		end_date := endDateRandom.Format("2006-01-02")
 		popularity := 1 + rand.Intn(5)
+
+		statusInfo := ""
+		if startDateRandom.After(time.Now()) {
+			statusInfo = "Pending"
+		} else if endDateRandom.Before(time.Now()) {
+			statusInfo = "Expired"
+		} else if endDateRandom.After(time.Now()) {
+			statusInfo = "Active"
+		}
 
 		new_text := id + "|" + name + "|" + categoryCode + "|" +
 			dietary + "|" + statusInfo + "|" + startDate +
@@ -123,7 +126,7 @@ func generatePlaylistDishRelation(playlistIDs []string, dishIDs []string) {
 
 		// do something with a line
 
-		dishNum := 4 + rand.Intn(6)
+		dishNum := 2 + rand.Intn(3)
 		chosen := 0
 
 		for chosen < dishNum {
@@ -170,6 +173,18 @@ func generateDish(restaurantIDs []string) []string {
 		"fugit, amet quia nulla culpa",
 		"nulla consequatur natus tempore officiis",
 	}
+
+	dishOptions := []string{
+		`[Mentaico Source, Yes, No]`,
+		`[Wasabi, Yes, No]`,
+	}
+
+	imageUrls := []string{
+		"https://images.unsplash.com/photo-1600891964092-4316c288032e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+		"https://images.unsplash.com/photo-1597289124948-688c1a35cb48?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
+		"https://images.unsplash.com/photo-1633271332313-04df64c0105b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+		"https://images.unsplash.com/photo-1579871494447-9811cf80d66c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+	}
 	cuisineStyleNumber := len(cuisineStyles)
 
 	ingredients := []string{
@@ -186,17 +201,19 @@ func generateDish(restaurantIDs []string) []string {
 		// do something with a line
 		name := scanner.Text()
 		restaurantID := restaurantIDs[rand.Intn(restaurantNumber)]
-		comment := ""
+		comment := "extra information"
 		price := fmt.Sprintf("%.2f", 4.0+rand.Float32()*20)
 		if err != nil {
 			fmt.Println(err)
 		}
 		cuisineStyle := cuisineStyles[rand.Intn(cuisineStyleNumber)]
 		ingredient := ingredients[rand.Intn(ingredientNumber)]
+		dishOption := dishOptions[rand.Intn(len(dishOptions))]
+		imageUrl := imageUrls[rand.Intn(len(imageUrls))]
 
 		new_text := id + "|" + name + "|" + restaurantID + "|" +
-			price + "|" + cuisineStyle + "|" + ingredient +
-			"|" + comment
+			price + "|" + cuisineStyle + "|" + ingredient + "|" +
+			dishOption + "|" + comment + "|" + imageUrl
 
 		_, err := write_f.WriteString(new_text + "\n")
 		if err != nil {
@@ -306,7 +323,7 @@ func GenerateAddress() []address {
 	return addresses
 }
 
-func generateRestaurant() []string {
+func generateRestaurant(categories []string) []string {
 	addresses := GenerateAddress()
 
 	read_f, err := os.Open("Initial/restaurant.txt")
@@ -323,6 +340,14 @@ func generateRestaurant() []string {
 	// remember to close the file at the end of the program
 	defer write_f.Close()
 
+	urls := []string{
+		"https://example1.com",
+		"https://example2.com",
+		"https://example3.com",
+	}
+	operationStartOptions := []string{"0600", "0700", "0800", "0900", "1100", "1200"}
+	operationEndOptions := []string{"1900", "2100", "2300", "2400", "0200"}
+
 	// read the file line by line using scanner
 	scanner := bufio.NewScanner(read_f)
 	address_number := len(addresses)
@@ -334,11 +359,25 @@ func generateRestaurant() []string {
 		// do something with a line
 		name := scanner.Text()
 		restaurant := addresses[rand.Intn(address_number)]
+		openStart := operationStartOptions[rand.Intn(len(operationStartOptions))]
+		openEnd := operationEndOptions[rand.Intn(len(operationEndOptions))]
+
+		// oh := []string{openStart, openEnd}
+		// b, err := json.Marshal(oh)
+		// operateHours := string(b)
+		operateHours := "[" + openStart + "," + openEnd + "]"
+
+		logoUrl := urls[rand.Intn(len(urls))]
+		headerUrl := urls[rand.Intn(len(urls))]
+		// headerUrl := ""
+		tag := categories[rand.Intn(len(categories))]
 
 		new_text := id + "|" + name + "|" + restaurant.unit_number + "|" +
-			restaurant.address_line1 + "|" + restaurant.address_line2 + "|" + strconv.Itoa(restaurant.postal_code)
+			restaurant.address_line1 + "|" + restaurant.address_line2 + "|" +
+			strconv.Itoa(restaurant.postal_code) + "|" + tag + "|" + operateHours +
+			"|" + logoUrl + "|" + headerUrl
 
-		_, err := write_f.WriteString(new_text + "\n")
+		_, err = write_f.WriteString(new_text + "\n")
 		if err != nil {
 			log.Fatal("error occurs when writing to file:", err)
 		}

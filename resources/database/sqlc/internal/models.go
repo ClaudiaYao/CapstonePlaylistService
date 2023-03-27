@@ -21,7 +21,9 @@ type Dish struct {
 	Price        float64 `json:"price"`
 	CuisineStyle string  `json:"cuisineStyle"`
 	Ingredient   string  `json:"ingredient"`
+	DishOptions  string  `json:"dishOptions"`
 	Comment      string  `json:"comment"`
+	ImageUrl     string  `json:"imageUrl"`
 }
 
 type Playlist struct {
@@ -48,4 +50,8 @@ type Restaurant struct {
 	AddressLine1 string `json:"addressLine1"`
 	AddressLine2 string `json:"addressLine2"`
 	PostalCode   int32  `json:"postalCode"`
+	Tag          string `json:"tag"`
+	OperateHours string `json:"operateHours"`
+	LogoUrl      string `json:"logoUrl"`
+	HeaderUrl    string `json:"headerUrl"`
 }
