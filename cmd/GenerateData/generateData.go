@@ -175,12 +175,6 @@ func generateDish(restaurantIDs []string) []string {
 		"nulla consequatur natus tempore officiis",
 	}
 
-	imageUrls := []string{
-		"https://images.unsplash.com/photo-1600891964092-4316c288032e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
-		"https://images.unsplash.com/photo-1597289124948-688c1a35cb48?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
-		"https://images.unsplash.com/photo-1633271332313-04df64c0105b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
-		"https://images.unsplash.com/photo-1579871494447-9811cf80d66c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
-	}
 	cuisineStyleNumber := len(cuisineStyles)
 
 	ingredients := []string{
@@ -195,7 +189,10 @@ func generateDish(restaurantIDs []string) []string {
 	for scanner.Scan() {
 		id := "Dish" + shortuuid.New()
 		// do something with a line
-		name := scanner.Text()
+		str := strings.Split(scanner.Text(), ",")
+		name := strings.TrimSpace(str[0])
+		imageUrl := strings.TrimSpace(str[1])
+
 		restaurantID := restaurantIDs[rand.Intn(restaurantNumber)]
 		comment := "extra information"
 		price := fmt.Sprintf("%.2f", 4.0+rand.Float32()*20)
@@ -204,7 +201,6 @@ func generateDish(restaurantIDs []string) []string {
 		}
 		cuisineStyle := cuisineStyles[rand.Intn(cuisineStyleNumber)]
 		ingredient := ingredients[rand.Intn(ingredientNumber)]
-		imageUrl := imageUrls[rand.Intn(len(imageUrls))]
 
 		var dishOptions = make([][]string, 2)
 		if rand.Intn(2) < 1 {
