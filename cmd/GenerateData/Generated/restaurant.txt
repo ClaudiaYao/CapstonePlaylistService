@@ -1,50 +1,50 @@
-RESLbQJkuEYHBMKheteeVYccd|McDonald's|#02-01|785|North Bridge Road|198753|Vie|[0800,2100]|https://example1.com|https://example3.com
-RESVpH5kKE2QPBJ7paSLtKi94|Starbucks|#01-03|11 Bali Lane|(empty)|189848|Mal|[0900,1900]|https://example3.com|https://example3.com
-REScYYHFCbGaZyphxHBTU5v9L|Chick-fil-A|#01-03D|Concorde Shopping Mall|100 Orchard Road|238840|Chi|[0800,2400]|https://example1.com|https://example2.com
-RESGSA82PiAKYpBVCfq324iAR|Taco Bell|#01-3029|744 Bedok Reservoir Road|(empty)|470744|Tur|[0600,1900]|https://example2.com|https://example1.com
-RESadGeAKHKDkQEdtMnwqY7NE|Wendy's|#04-01|Bugis+|201 Victoria Street|188067|Tha|[0900,2100]|https://example1.com|https://example2.com
-RESYUw9CPAoyroz5K4VJFUwjN|Dunkin'|#01-03D|Concorde Shopping Mall|100 Orchard Road|238840|Ind|[0700,1900]|https://example2.com|https://example1.com
-RES2aYJA2phHHEo7bwtwwaLmQ|Burger King|#02-21|171 Telok Ayer Street|(empty)|68621|Sin|[1100,0200]|https://example2.com|https://example1.com
-RESnAxWRK6fjLUfFE6x24NZDe|Subway|#04-01|Bugis+|201 Victoria Street|188067|Kor|[0900,0200]|https://example2.com|https://example2.com
-RESTFhnCHLLrA2AWhCTB24KcS|Domino's|#01-3029|744 Bedok Reservoir Road|(empty)|470744|Tha|[0700,1900]|https://example3.com|https://example1.com
-RES7A9JsPnLb2gN9gGf34vA6j|Chipotle Mexican Grill|#01-03D|Concorde Shopping Mall|100 Orchard Road|238840|Tur|[1100,2400]|https://example3.com|https://example3.com
-RESo2rJ4eQQncQknjZnogaYoV|Sonic Drive-In|#01-03D|Concorde Shopping Mall|100 Orchard Road|238840|Jap|[0700,2100]|https://example3.com|https://example3.com
-REShJXoSrox7r527Z38rv3dok|Panera Bread|#01-03|11 Bali Lane|(empty)|189848|Jap|[0700,2400]|https://example2.com|https://example3.com
-RESdKjqvtCxvDTuRHGQvZUkaG|Pizza Hut|#01-01|44 Jalan Eunos|(empty)|419502|Mal|[0700,2400]|https://example3.com|https://example2.com
-RESK53YXMZmX6DRw5xf5FETFk|KFC|#01-01|44 Jalan Eunos|(empty)|419502|Jap|[1200,2300]|https://example3.com|https://example2.com
-RESCZqJubceR6Y3EGFh9pUfxn|Popeyes|#02-21|171 Telok Ayer Street|(empty)|68621|Chi|[0600,2400]|https://example1.com|https://example1.com
-RESbziWKfcymPuBrDNf2giNES|Panda Express|#01-3029|744 Bedok Reservoir Road|(empty)|470744|Tur|[0900,2100]|https://example1.com|https://example3.com
-RESZPa4ZGdnHmZCSgpyqRwgrE|Dairy Queen|#02-01|785|North Bridge Road|198753|Jap|[1100,1900]|https://example1.com|https://example2.com
-RESLbn22gLLfrrqhVqfmPGW9Z|Arby's|#01-01|44 Jalan Eunos|(empty)|419502|Tur|[0700,2300]|https://example1.com|https://example2.com
-RESnx6M7aekYSVKm2JLoewpBP|Little Caesars|#02-21|171 Telok Ayer Street|(empty)|68621|Sin|[0900,0200]|https://example3.com|https://example2.com
-RESqYq3EeQF2ixcZTdjyREd7S|Olive Garden|#1-02|215 Upper Thomson Road|(empty)|574349|Vie|[1100,1900]|https://example3.com|https://example2.com
-RESfLBzL9yfG6zxg4Qp4tzAck|Applebee's|#04-01|Bugis+|201 Victoria Street|188067|Sin|[0600,1900]|https://example2.com|https://example3.com
-RESBTahHGqLWBRUdQAJoFqeJR|Jack in the Box|#1-02|215 Upper Thomson Road|(empty)|574349|Jap|[0800,2400]|https://example1.com|https://example1.com
-RESudKUpPH6DM8X2GFfjb3DqT|Buffalo Wild Wings|#02-21|171 Telok Ayer Street|(empty)|68621|Mal|[1100,2300]|https://example3.com|https://example3.com
-RES5yfSnCepZKJLLzA7uCsUx|Texas Roadhouse|#01-03D|Concorde Shopping Mall|100 Orchard Road|238840|Chi|[1200,2100]|https://example2.com|https://example2.com
-RESHgPj2dCbMP5f5DjLQPfSDk|Papa Johns|#01-03|11 Bali Lane|(empty)|189848|Chi|[1200,2400]|https://example1.com|https://example1.com
-RESCJUaUwFxsrtD4Tb5mnwfjg|Chili's Grill & Bar|#01-3029|744 Bedok Reservoir Road|(empty)|470744|Jap|[0700,2100]|https://example2.com|https://example1.com
-RESeXurh7EyhknPnv2eSF2KR7|Whataburger|#01-01|44 Jalan Eunos|(empty)|419502|Tha|[0600,2400]|https://example1.com|https://example2.com
-RES5oHZNkiSBYAdCJ8R7EgGf7|IHOP|#02-01|785|North Bridge Road|198753|Vie|[1200,1900]|https://example3.com|https://example2.com
-RES6Pwz7ji48CnCW4QbrxPKdc|Outback Steakhouse|#02-01|306 Lavender Street|(empty)|338813|Chi|[0900,0200]|https://example2.com|https://example1.com
-RESYtAbtKTkK87Jn7RNs2Nbii|Culver's|#1-02|215 Upper Thomson Road|(empty)|574349|Vie|[0800,2400]|https://example1.com|https://example1.com
-REST7c2csqLAExEnxFBatbmNh|Denny's|#02-01|785|North Bridge Road|198753|Jap|[1200,2300]|https://example3.com|https://example1.com
-RESTkeZaWVYfQAXvg8oV4k3NE|Cracker Barrel|#01-03D|Concorde Shopping Mall|100 Orchard Road|238840|Sin|[1200,2100]|https://example3.com|https://example3.com
-RESY4sfZ8VKT7KYqjmgfqaJ6h|Raising Cane's Chicken Fingers|#01-49|The Centrepoint|176 Orchard Road|238843|Tur|[1200,2300]|https://example3.com|https://example3.com
-RESDdLfnKfwpUPDcreqvhvP3H|Red Lobster|#01-49|The Centrepoint|176 Orchard Road|238843|Mal|[0700,2300]|https://example2.com|https://example1.com
-RESD2pDCjUgHQjXVd6gBvReCf|Jimmy John's|#01-3029|744 Bedok Reservoir Road|(empty)|470744|Vie|[1100,2100]|https://example2.com|https://example3.com
-RESf2UZSZQpitidfpbwHqfJkM|The Cheesecake Factory|#01-49|The Centrepoint|176 Orchard Road|238843|Tur|[0900,2100]|https://example3.com|https://example2.com
-RESZTje63hn4v4DRBmtNc9KTc|Zaxby's|#01-01|44 Jalan Eunos|(empty)|419502|Ind|[1100,2100]|https://example2.com|https://example3.com
-RESf2WMgf2rxjpuYDgHFBc5Jc|LongHorn Steakhouse|#02-01|785|North Bridge Road|198753|Chi|[1100,0200]|https://example3.com|https://example2.com
-REShYRiUrjT9qs9Wfwap2qL47|Jersey Mike's Subs|#1-02|215 Upper Thomson Road|(empty)|574349|Jap|[0600,0200]|https://example1.com|https://example1.com
-RESVoN62wLtpi4o8upv44JVA7|Wingstop|#02-21|171 Telok Ayer Street|(empty)|68621|Ind|[0600,1900]|https://example3.com|https://example2.com
-RESjAwc4CENLwsLjdsAFiVZ2A|Five Guys|#04-01|Bugis+|201 Victoria Street|188067|Mal|[1100,1900]|https://example3.com|https://example2.com
-RES2Bh2JBoWeeqQtpkv7nfRug|Hardee's|#01-03|11 Bali Lane|(empty)|189848|Mal|[0600,2300]|https://example2.com|https://example1.com
-RESfq3LucWcVbxrZwJF2WhTiU|In-N-Out Burger|#01-01|44 Jalan Eunos|(empty)|419502|Kor|[1200,2400]|https://example3.com|https://example1.com
-RESQLe6xwmZoKABmHgmuppmVV|Carl's Jr.|#1-02|215 Upper Thomson Road|(empty)|574349|Chi|[0800,2100]|https://example3.com|https://example2.com
-REStPsTQWCCSgmWbw6HQbReQS|Bojangles|#02-01|306 Lavender Street|(empty)|338813|Jap|[0600,2300]|https://example1.com|https://example1.com
-RESETkJmCM5ffJHPdJPt4RLaX|Red Robin|#01-3029|744 Bedok Reservoir Road|(empty)|470744|Mal|[0600,1900]|https://example1.com|https://example2.com
-RESb7aKqhZNJWcNpTk4VqaK2T|Waffle House|#04-01|Bugis+|201 Victoria Street|188067|Chi|[1200,2300]|https://example2.com|https://example3.com
-RESfBfwtfZWRCJPvqaSCGZUfC|Golden Corral|#04-01|Bugis+|201 Victoria Street|188067|Kor|[1200,1900]|https://example1.com|https://example2.com
-RESc7smFjJLdaJuPKfsmncBLM|BJ's Restaurant & Brewhouse|#01-03D|Concorde Shopping Mall|100 Orchard Road|238840|Ind|[0900,2300]|https://example3.com|https://example1.com
-RESteX4MwECCe3CMQaJqNKEkT|Firehouse Subs|#01-01|44 Jalan Eunos|(empty)|419502|Chi|[1100,0200]|https://example2.com|https://example3.com
+RESxt8vQnTnw2kmyEftfydrPU|McDonald's|#02-01|785|North Bridge Road|198753|Sin|[["0800","2100"],["0800","2100"],["0800","2100"],["0800","2100"],["0800","2100"],["0800","2300"],["0800","0200"]]|https://example2.com|https://example3.com
+RESKrRYuck45v5aSzfrV8mpqQ|Starbucks|#02-01|306 Lavender Street|(empty)|338813|Sin|[["1200","2100"],["1200","2100"],["1200","2100"],["1200","2100"],["1200","2100"],["1200","1900"],["1200","2100"]]|https://example3.com|https://example2.com
+RESWyhcUYpmjxq9TN78adNAjC|Chick-fil-A|#02-21|171 Telok Ayer Street|(empty)|68621|Tur|[["0700","2400"],["0700","2400"],["0700","2400"],["0700","2400"],["0700","2400"],["0700","1900"],["0700","1900"]]|https://example2.com|https://example1.com
+RESeMNcmVtDPqnSFawfuQ4MaC|Taco Bell|#04-01|Bugis+|201 Victoria Street|188067|Chi|[["0900","2100"],["0900","2100"],["0900","2100"],["0900","2100"],["0900","2100"],["0900","2300"],["0900","2100"]]|https://example1.com|https://example1.com
+RESz22PNBm8kLbGukkxEKxYAj|Wendy's|#02-01|785|North Bridge Road|198753|Ind|[["1100","2400"],["1100","2400"],["1100","2400"],["1100","2400"],["1100","2400"],["1100","2400"],["1100","2300"]]|https://example2.com|https://example2.com
+RESJzBkWjkaXXCiHZ3fMTgK7N|Dunkin'|#01-01|44 Jalan Eunos|(empty)|419502|Kor|[["0900","2100"],["0900","2100"],["0900","2100"],["0900","2100"],["0900","2100"],["0900","0200"],["0900","0200"]]|https://example2.com|https://example2.com
+RESzv6bW3R2EF2NDdr3sG6CJg|Burger King|#01-3029|744 Bedok Reservoir Road|(empty)|470744|Ind|[["0700","1900"],["0700","1900"],["0700","1900"],["0700","1900"],["0700","1900"],["0700","2100"],["0700","1900"]]|https://example1.com|https://example1.com
+RESFo7NB2TbvXDgMhYEw2jNZE|Subway|#01-3029|744 Bedok Reservoir Road|(empty)|470744|Kor|[["1200","2300"],["1200","2300"],["1200","2300"],["1200","2300"],["1200","2300"],["1200","2400"],["1200","2100"]]|https://example2.com|https://example1.com
+RES4fScDdPVutDcKU5dEQEnYh|Domino's|#01-3029|744 Bedok Reservoir Road|(empty)|470744|Jap|[["0900","0200"],["0900","0200"],["0900","0200"],["0900","0200"],["0900","0200"],["0900","2300"],["0900","2400"]]|https://example2.com|https://example3.com
+RESmSjUJ95yUur83g2knPw6vf|Chipotle Mexican Grill|#01-01|44 Jalan Eunos|(empty)|419502|Kor|[["0700","2400"],["0700","2400"],["0700","2400"],["0700","2400"],["0700","2400"],["0700","2100"],["0700","0200"]]|https://example3.com|https://example3.com
+RESws5uGBQX7a3fotNz42gPX6|Sonic Drive-In|#01-49|The Centrepoint|176 Orchard Road|238843|Tha|[["0800","2100"],["0800","2100"],["0800","2100"],["0800","2100"],["0800","2100"],["0800","2100"],["0800","2300"]]|https://example1.com|https://example2.com
+RES92ky4LsWfawtok97ncqfyC|Panera Bread|#01-01|44 Jalan Eunos|(empty)|419502|Tur|[["0700","2400"],["0700","2400"],["0700","2400"],["0700","2400"],["0700","2400"],["0700","1900"],["0700","2100"]]|https://example1.com|https://example3.com
+RES2nuxCRTAB4J3hXZPJ2bUpM|Pizza Hut|#02-01|785|North Bridge Road|198753|Vie|[["1100","1900"],["1100","1900"],["1100","1900"],["1100","1900"],["1100","1900"],["1100","1900"],["1100","2300"]]|https://example1.com|https://example2.com
+REScLvA2RYzs6YEePKGsfBbu|KFC|#01-49|The Centrepoint|176 Orchard Road|238843|Mal|[["0600","2300"],["0600","2300"],["0600","2300"],["0600","2300"],["0600","2300"],["0600","2300"],["0600","2300"]]|https://example1.com|https://example1.com
+RESrcq7xyzzv5HN9qUtPdGwn6|Popeyes|#01-49|The Centrepoint|176 Orchard Road|238843|Vie|[["0900","0200"],["0900","0200"],["0900","0200"],["0900","0200"],["0900","0200"],["0900","2100"],["0900","1900"]]|https://example3.com|https://example2.com
+RESGdCE4LMwgd2sQHu2ucgFoE|Panda Express|#04-01|Bugis+|201 Victoria Street|188067|Kor|[["0600","1900"],["0600","1900"],["0600","1900"],["0600","1900"],["0600","1900"],["0600","1900"],["0600","1900"]]|https://example1.com|https://example2.com
+RESaXdA52Scsz3tn9dHtLyBxT|Dairy Queen|#01-3029|744 Bedok Reservoir Road|(empty)|470744|Kor|[["0600","2400"],["0600","2400"],["0600","2400"],["0600","2400"],["0600","2400"],["0600","0200"],["0600","2300"]]|https://example2.com|https://example2.com
+RESU2ju7ofj9TCGGyb2qFGbvd|Arby's|#1-02|215 Upper Thomson Road|(empty)|574349|Chi|[["0800","2100"],["0800","2100"],["0800","2100"],["0800","2100"],["0800","2100"],["0800","2100"],["0800","2100"]]|https://example2.com|https://example2.com
+RESwgG7MfVv2UhSgyBPd3vT8L|Little Caesars|#01-03|11 Bali Lane|(empty)|189848|Vie|[["1200","2400"],["1200","2400"],["1200","2400"],["1200","2400"],["1200","2400"],["1200","2100"],["1200","1900"]]|https://example2.com|https://example3.com
+RESn9zkJqPZJoTocQkS2gVWMo|Olive Garden|#04-01|Bugis+|201 Victoria Street|188067|Jap|[["1100","0200"],["1100","0200"],["1100","0200"],["1100","0200"],["1100","0200"],["1100","2300"],["1100","2400"]]|https://example1.com|https://example1.com
+RESjd9pbTMX7YqSaRbQe4Hhij|Applebee's|#01-3029|744 Bedok Reservoir Road|(empty)|470744|Vie|[["0600","1900"],["0600","1900"],["0600","1900"],["0600","1900"],["0600","1900"],["0600","1900"],["0600","1900"]]|https://example3.com|https://example2.com
+RES8Pt9FHqXBud8cgZ8MMsHL|Jack in the Box|#02-01|306 Lavender Street|(empty)|338813|Tur|[["0900","0200"],["0900","0200"],["0900","0200"],["0900","0200"],["0900","0200"],["0900","1900"],["0900","2400"]]|https://example2.com|https://example1.com
+RES9ZFBEzcw6tT5bW38LfkEZ7|Buffalo Wild Wings|#01-01|44 Jalan Eunos|(empty)|419502|Tur|[["0600","0200"],["0600","0200"],["0600","0200"],["0600","0200"],["0600","0200"],["0600","2300"],["0600","1900"]]|https://example3.com|https://example3.com
+REShL9WTL8msvagbgmWghmmBE|Texas Roadhouse|#02-01|785|North Bridge Road|198753|Sin|[["0600","2100"],["0600","2100"],["0600","2100"],["0600","2100"],["0600","2100"],["0600","1900"],["0600","2100"]]|https://example3.com|https://example3.com
+RESXR7kcNsjzMsu6xvTXgnVRK|Papa Johns|#01-49|The Centrepoint|176 Orchard Road|238843|Chi|[["1200","2300"],["1200","2300"],["1200","2300"],["1200","2300"],["1200","2300"],["1200","2100"],["1200","1900"]]|https://example3.com|https://example1.com
+REST9LWDwLrgQ5RfZMFCpaYaY|Chili's Grill & Bar|#01-49|The Centrepoint|176 Orchard Road|238843|Chi|[["1100","2100"],["1100","2100"],["1100","2100"],["1100","2100"],["1100","2100"],["1100","2400"],["1100","2400"]]|https://example2.com|https://example1.com
+RESfDkxKP9H5rYb8sBxtgknEA|Whataburger|#02-21|171 Telok Ayer Street|(empty)|68621|Tur|[["0700","2300"],["0700","2300"],["0700","2300"],["0700","2300"],["0700","2300"],["0700","1900"],["0700","2100"]]|https://example3.com|https://example2.com
+RESyKMzta9KkVFY4UN5njLwEL|IHOP|#01-01|44 Jalan Eunos|(empty)|419502|Chi|[["1100","2100"],["1100","2100"],["1100","2100"],["1100","2100"],["1100","2100"],["1100","2100"],["1100","2300"]]|https://example2.com|https://example3.com
+RESCvNdZJGpkpu3wCK2fCfqmM|Outback Steakhouse|#1-02|215 Upper Thomson Road|(empty)|574349|Jap|[["1200","1900"],["1200","1900"],["1200","1900"],["1200","1900"],["1200","1900"],["1200","1900"],["1200","0200"]]|https://example1.com|https://example1.com
+RES9krAAmkXkfhV8Lwej45mcd|Culver's|#04-01|Bugis+|201 Victoria Street|188067|Ind|[["0900","2300"],["0900","2300"],["0900","2300"],["0900","2300"],["0900","2300"],["0900","2100"],["0900","1900"]]|https://example3.com|https://example2.com
+RESgTKDJ3gTS67wA9m6AFyJu3|Denny's|#04-01|Bugis+|201 Victoria Street|188067|Sin|[["1100","1900"],["1100","1900"],["1100","1900"],["1100","1900"],["1100","1900"],["1100","0200"],["1100","1900"]]|https://example3.com|https://example3.com
+RES2ojdTHAWHLDarKrjixRwhM|Cracker Barrel|#01-49|The Centrepoint|176 Orchard Road|238843|Tur|[["1100","1900"],["1100","1900"],["1100","1900"],["1100","1900"],["1100","1900"],["1100","0200"],["1100","2400"]]|https://example3.com|https://example1.com
+RESJWVnSsvtrec6ofphpZWBea|Raising Cane's Chicken Fingers|#02-01|785|North Bridge Road|198753|Chi|[["0800","0200"],["0800","0200"],["0800","0200"],["0800","0200"],["0800","0200"],["0800","1900"],["0800","2100"]]|https://example3.com|https://example2.com
+RESDqVyFQgwUnA4dBWYFYD29E|Red Lobster|#02-01|306 Lavender Street|(empty)|338813|Tha|[["0600","2300"],["0600","2300"],["0600","2300"],["0600","2300"],["0600","2300"],["0600","0200"],["0600","2400"]]|https://example1.com|https://example3.com
+RESzRv6tLPYrAqPyzWDMx2qai|Jimmy John's|#02-01|785|North Bridge Road|198753|Vie|[["0600","2100"],["0600","2100"],["0600","2100"],["0600","2100"],["0600","2100"],["0600","2300"],["0600","2100"]]|https://example3.com|https://example2.com
+RESL8onaz7XvaW6mVGnwdVr27|The Cheesecake Factory|#01-49|The Centrepoint|176 Orchard Road|238843|Kor|[["0700","2100"],["0700","2100"],["0700","2100"],["0700","2100"],["0700","2100"],["0700","2100"],["0700","1900"]]|https://example1.com|https://example2.com
+RESjqdQLMkit8ZjKbeT9cJQgS|Zaxby's|#01-03D|Concorde Shopping Mall|100 Orchard Road|238840|Chi|[["0900","2300"],["0900","2300"],["0900","2300"],["0900","2300"],["0900","2300"],["0900","2400"],["0900","2400"]]|https://example2.com|https://example3.com
+RESFngV6VrAXSS9uX63h9t5dD|LongHorn Steakhouse|#01-03|11 Bali Lane|(empty)|189848|Jap|[["0700","0200"],["0700","0200"],["0700","0200"],["0700","0200"],["0700","0200"],["0700","2100"],["0700","2300"]]|https://example3.com|https://example1.com
+RESkdQrfdZrTkhe96G2UVFP4S|Jersey Mike's Subs|#01-3029|744 Bedok Reservoir Road|(empty)|470744|Chi|[["0900","2100"],["0900","2100"],["0900","2100"],["0900","2100"],["0900","2100"],["0900","2400"],["0900","0200"]]|https://example3.com|https://example2.com
+RESB8PsuPnprFrvz6GDvjE3HC|Wingstop|#1-02|215 Upper Thomson Road|(empty)|574349|Vie|[["0700","2100"],["0700","2100"],["0700","2100"],["0700","2100"],["0700","2100"],["0700","2400"],["0700","2400"]]|https://example1.com|https://example2.com
+RES7R24RUUcUpBZZ9rL2EKtRQ|Five Guys|#01-49|The Centrepoint|176 Orchard Road|238843|Ind|[["0600","2100"],["0600","2100"],["0600","2100"],["0600","2100"],["0600","2100"],["0600","1900"],["0600","2300"]]|https://example2.com|https://example2.com
+RES7683fFPC2VCQuAR63FsAhM|Hardee's|#02-01|785|North Bridge Road|198753|Tha|[["0700","2400"],["0700","2400"],["0700","2400"],["0700","2400"],["0700","2400"],["0700","0200"],["0700","2100"]]|https://example2.com|https://example3.com
+RESUSMtUuLG6DUVB7B6mo2AkQ|In-N-Out Burger|#04-01|Bugis+|201 Victoria Street|188067|Jap|[["0700","1900"],["0700","1900"],["0700","1900"],["0700","1900"],["0700","1900"],["0700","1900"],["0700","2100"]]|https://example1.com|https://example3.com
+RESs8JUxFLAkzauVfVXUaaox7|Carl's Jr.|#01-03D|Concorde Shopping Mall|100 Orchard Road|238840|Sin|[["0600","1900"],["0600","1900"],["0600","1900"],["0600","1900"],["0600","1900"],["0600","1900"],["0600","0200"]]|https://example3.com|https://example3.com
+RESefee56ksxRGPJ674MMgegU|Bojangles|#02-01|306 Lavender Street|(empty)|338813|Vie|[["0900","1900"],["0900","1900"],["0900","1900"],["0900","1900"],["0900","1900"],["0900","2400"],["0900","2100"]]|https://example3.com|https://example1.com
+RESimuqBypYnGoLVhf4Eu4dvc|Red Robin|#01-49|The Centrepoint|176 Orchard Road|238843|Kor|[["0900","2300"],["0900","2300"],["0900","2300"],["0900","2300"],["0900","2300"],["0900","2400"],["0900","2300"]]|https://example2.com|https://example1.com
+REST7Fs2b9PDkmXmNQxtETYY5|Waffle House|#01-03D|Concorde Shopping Mall|100 Orchard Road|238840|Kor|[["0800","2400"],["0800","2400"],["0800","2400"],["0800","2400"],["0800","2400"],["0800","2100"],["0800","0200"]]|https://example3.com|https://example1.com
+RES6WF9Rp774ArwxRDtaV5xFe|Golden Corral|#01-49|The Centrepoint|176 Orchard Road|238843|Kor|[["0900","2300"],["0900","2300"],["0900","2300"],["0900","2300"],["0900","2300"],["0900","0200"],["0900","2400"]]|https://example2.com|https://example2.com
+RESiQFKE3qMM48jE3yXj4tFCG|BJ's Restaurant & Brewhouse|#01-49|The Centrepoint|176 Orchard Road|238843|Sin|[["1100","2100"],["1100","2100"],["1100","2100"],["1100","2100"],["1100","2100"],["1100","2400"],["1100","2400"]]|https://example2.com|https://example1.com
+RESWibuds9ymkJSbWt2oaUKwZ|Firehouse Subs|#02-01|306 Lavender Street|(empty)|338813|Kor|[["0600","2100"],["0600","2100"],["0600","2100"],["0600","2100"],["0600","2100"],["0600","0200"],["0600","0200"]]|https://example1.com|https://example2.com

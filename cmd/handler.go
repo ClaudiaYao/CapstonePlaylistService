@@ -127,7 +127,7 @@ func (app *PlaylistService) wrapGetMultiplePlaylists(w http.ResponseWriter, r *h
 
 	for _, playlist := range *playlists {
 		fmt.Println(playlist.ID)
-		dishes, restaurants, err := app.GetPlaylistInfo(r.Context(), playlist.ID)
+		dishesDTO, restaurantsDTO, err := app.GetPlaylistInfo(r.Context(), playlist.ID)
 
 		if err != nil {
 			return nil, errors.New("invalid query for the playlist and other tables,")
@@ -135,8 +135,8 @@ func (app *PlaylistService) wrapGetMultiplePlaylists(w http.ResponseWriter, r *h
 
 		responseDTO := PlaylistServiceResponseDataDTO{
 			Playlist:       playlist,
-			DishIncluded:   dishes,
-			RestaurantInfo: restaurants,
+			DishIncluded:   dishesDTO,
+			RestaurantInfo: restaurantsDTO,
 		}
 		responseData = append(responseData, responseDTO)
 	}

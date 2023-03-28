@@ -6,7 +6,7 @@ CREATE TABLE "restaurant" (
   "address_line2" varchar(50) NOT NULL,
   "postal_code" int NOT NULL,
   "tag" varchar NOT NULL,
-  "operate_hours" varchar NOT NULL,
+  "operate_hours" text[],
   "logo_url" varchar NOT NULL,
   "header_url" varchar NOT NULL
 );
