@@ -24,6 +24,19 @@ type Dish struct {
 	ImageUrl     string    `json:"imageUrl"`
 }
 
+type DishDTO struct {
+	ID           string     `json:"id"`
+	Name         string     `json:"name"`
+	RestaurantID string     `json:"restaurantID"`
+	Price        float64    `json:"price"`
+	CuisineStyle string     `json:"cuisineStyle,omitempty"`
+	Ingredient   string     `json:"ingredient,omitempty"`
+	Comment      string     `json:"comment,omitempty"`
+	ServeTime    time.Time  `json:"serveTime,omitempty"`
+	DishOptions  [][]string `json:"dishOptions"`
+	ImageUrl     string     `json:"imageUrl"`
+}
+
 type Playlist struct {
 	ID           string    `json:"id"`
 	Name         string    `json:"name"`
@@ -54,15 +67,28 @@ type Restaurant struct {
 	HeaderUrl    string `json:"headerURL"`
 }
 
+type RestaurantDTO struct {
+	ID           string     `json:"id"`
+	Name         string     `json:"restaurantName"`
+	UnitNumber   string     `json:"unitNumber"`
+	AddressLine1 string     `json:"addressLine1"`
+	AddressLine2 string     `json:"addressLine2"`
+	PostalCode   int        `json:"postalCode"`
+	OperateHours [][]string `json:"operateHours"`
+	Tag          string     `json:"tag"`
+	LogoUrl      string     `json:"logoURL"`
+	HeaderUrl    string     `json:"headerURL"`
+}
+
 type PlaylistServiceResponseDataDTO struct {
 	Playlist       Playlist
-	DishIncluded   []Dish
-	RestaurantInfo []Restaurant
+	DishIncluded   []DishDTO
+	RestaurantInfo []RestaurantDTO
 }
 
 type RestaurantResponseDataDTO struct {
-	RestaurantInfo Restaurant
-	DishIncluded   []Dish
+	RestaurantInfo RestaurantDTO
+	DishIncluded   []DishDTO
 }
 
 // This struct includes all the data returned to the request
